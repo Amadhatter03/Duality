@@ -7,6 +7,8 @@ class Guy {
         this.facing = 0; // 0 = right, 1 = left
         this.state = 0; // 0 = idle, 1 = walking, 2 = running, 3 = jumping/falling, 4 = dead
         this.dead = false;
+        this.x  = 0;
+        this.y  = 0;
 
         this.velocity = {x: 0, y: 0}; // NOT IMPLEMENTED YET
         this.fallAcc = 562.5; // NOT IMPLEMENTED YET
@@ -43,7 +45,7 @@ class Guy {
         // walk animation (state = 1), facing left (facing = 1)
         this.animations[1][1] = new Animator(ASSET_MANAGER.getAsset(
             "./Sprites/gangster-pixel-character-sprite-sheets-pack/Gangsters_2/WalkLeft.png"),
-            1280 - 128, 0, 128, 128, 10, 0.1);
+            0, 0, 128, 128, 10, 0.1);
 
         // run animation (state = 2), facing right (facing = 0)
         this.animations[2][0] = new Animator(ASSET_MANAGER.getAsset(
@@ -89,15 +91,21 @@ class Guy {
     };
 
     update() {
+        const TICK = this.game.clockTick;
+        const MIN_WALK = 4.453125;
+        const MAX_WALK = 93.75;
         if (this.game.active != true){
             this.state = 0;
+            //this.x -= MIN_WALK + this.game.clockTick;
         }
         if (this.game.left == true) {
             this.facing = 1;
             this.state = 1;
+            this.x -= MIN_WALK + this.game.clockTick;
         } else if (this.game.right == true) {
             this.facing = 0;
             this.state = 1;
+            this.x += MIN_WALK + this.game.clockTick;
         }
     }
 
