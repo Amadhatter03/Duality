@@ -82,7 +82,7 @@ class Guy {
 
     update() {
         const TICK = this.game.clockTick;
-        const MIN_WALK = 4.453125;
+        const MIN_WALK = 2.453125;
         const MAX_WALK = 93.75;
         if (this.game.active != true){
             this.state = 0;
@@ -101,11 +101,19 @@ class Guy {
 
     draw(ctx) {
         // ADD SCALE LATER ON?/CHANGE HOW I DID SCALING IN ANIMATOR.JS?
+        ctx.save(); // Save the current state of the canvas
+
+        // Set the scale (e.g., 2x for double the size or 0.5x for half the size)
+        const scale = 0.5; // Change this value to your desired scale
+        ctx.translate(this.x, this.y); // Translate to the character's position
+        ctx.scale(scale, scale);
         if (this.dead) {
             this.animations[4][this.facing].drawFrame(this.game.clockTick, ctx, this.x, this.y);
         } else {
             console.log(this.animations[this.state][this.facing]);
             this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x, this.y);
         }
+
+        ctx.restore();
     }
 }
