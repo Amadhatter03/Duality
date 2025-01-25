@@ -14,6 +14,9 @@ class GameEngine {
         this.mouse = null;
         this.wheel = null;
         this.keys = {};
+        this.left = false;
+        this.right = false;
+        this.active = false;
 
         // Options and the Details
         this.options = options || {
@@ -37,6 +40,8 @@ class GameEngine {
     };
 
     startInput() {
+        this.keyboardActive = false;
+
         const getXandY = e => ({
             x: e.clientX - this.ctx.canvas.getBoundingClientRect().left,
             y: e.clientY - this.ctx.canvas.getBoundingClientRect().top
@@ -72,8 +77,31 @@ class GameEngine {
             this.rightclick = getXandY(e);
         });
 
-        this.ctx.canvas.addEventListener("keydown", event => this.keys[event.key] = true);
-        this.ctx.canvas.addEventListener("keyup", event => this.keys[event.key] = false);
+        this.ctx.canvas.addEventListener("keydown", event => {
+            this.keys[event.key] = true
+            this.active = true;
+            console.log(event.key, this.keys);
+            switch (event.code) {
+                case "KeyA":
+                    this.left = true;
+                    break;
+                case "KeyD":
+                    this.right = true;
+                    break;
+            }
+        });
+        this.ctx.canvas.addEventListener("keyup", event => {
+            this.keys[event.key] = false
+            this.active = false;
+            switch (event.code) {
+                case "KeyA":
+                    this.left = false;
+                    break;
+                case "KeyD":
+                    this.right = false;
+                    break;
+            }
+        });
     };
 
     addEntity(entity) {

@@ -33,7 +33,7 @@ class Guy {
         // idle animation (state = 0), facing left (facing = 1)
         this.animations[0][1] = new Animator(ASSET_MANAGER.getAsset(
             "./Sprites/gangster-pixel-character-sprite-sheets-pack/Gangsters_2/IdleLeft.png"),
-            896 - 128, 0, 128, 128, 7, 0.1);
+            0, 0, 128, 128, 7, 0.1);
 
         // walk animation (state = 1), facing right (facing = 0)
         this.animations[1][0] = new Animator(ASSET_MANAGER.getAsset(
@@ -89,7 +89,16 @@ class Guy {
     };
 
     update() {
-        // NOT IMPLEMENTED YET
+        if (this.game.active != true){
+            this.state = 0;
+        }
+        if (this.game.left == true) {
+            this.facing = 1;
+            this.state = 1;
+        } else if (this.game.right == true) {
+            this.facing = 0;
+            this.state = 1;
+        }
     }
 
     draw(ctx) {
@@ -97,6 +106,7 @@ class Guy {
         if (this.dead) {
             this.animations[4][this.facing].drawFrame(this.game.clockTick, ctx, this.x, this.y);
         } else {
+            console.log(this.animations[this.state][this.facing]);
             this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x, this.y);
         }
     }
