@@ -11,8 +11,6 @@ class Guy {
         this.velocity = {x: 0, y: 0}; // NOT IMPLEMENTED YET
         this.fallAcc = 562.5; // NOT IMPLEMENTED YET
 
-        this.updateBB();
-
         this.animations = [];
         this.loadAnimations();
     };
@@ -74,14 +72,6 @@ class Guy {
         this.animations[4][1] = new Animator(ASSET_MANAGER.getAsset(
             "./Sprites/gangster-pixel-character-sprite-sheets-pack/Gangsters_2/DeadLeft.png"),
             640 - 128, 0, 128, 128, 5, 0.1);
-    };
-
-    updateBB() {
-        // NOT IMPLEMENTED YET
-    };
-
-    updateLastBB() {
-        // NOT IMPLEMENTED YET
     };
 
     die() {
