@@ -6,16 +6,16 @@ class Animator {
         this.totalTime = frameCount * frameDuration;
     };
 
-    drawFrame(tick, ctx, x, y) {
+    drawFrame(tick, ctx, x, y, scale) {
         this.elapsedTime += tick;
         if (this.elapsedTime > this.totalTime) this.elapsedTime -= this.totalTime;
-        const frame = this.currentFrame();
+        let frame = this.currentFrame();
 
         ctx.drawImage(this.spritesheet,
             this.xStart + this.width * frame, this.yStart,
             this.width, this.height,
             x, y,
-            this.width * 5, this.height * 5); // Maybe change this...
+            this.width * scale, this.height * scale);
     };
 
     currentFrame() {

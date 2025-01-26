@@ -9,6 +9,6 @@ class BigBox {
     update() {}
 
     draw(ctx) {
-        this.sprite.drawFrame(this.game.clockTick, ctx, this.x, this.y);
+        this.sprite.drawFrame(this.game.clockTick, ctx, this.x, this.y, 1);
     }
 }

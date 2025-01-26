@@ -17,6 +17,7 @@ class GameEngine {
         this.left = false;
         this.right = false;
         this.active = false;
+        this.jump = false;
 
         // Options and the Details
         this.options = options || {
@@ -88,6 +89,9 @@ class GameEngine {
                 case "KeyD":
                     this.right = true;
                     break;
+                case "Space":
+                    this.jump = false;
+                    break;  
             }
         });
         this.ctx.canvas.addEventListener("keyup", event => {
@@ -100,6 +104,9 @@ class GameEngine {
                 case "KeyD":
                     this.right = false;
                     break;
+                case "Space":
+                    this.jump = false;
+                    break;    
             }
         });
     };

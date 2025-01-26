@@ -7,12 +7,18 @@ class Guy {
         this.facing = 0; // 0 = right, 1 = left
         this.state = 0; // 0 = idle, 1 = walking, 2 = running, 3 = jumping/falling, 4 = dead
         this.dead = false;
-        this.x  = 0;
-        this.y  = 0;
+        // Start Pos
+        this.x  = x;
+        this.y  = y;
 
         this.velocity = {x: 0, y: 0}; // NOT IMPLEMENTED YET
         this.fallAcc = 562.5; // NOT IMPLEMENTED YET
 
+        this.BB = new BoundingBox(this.x, this.y, 128, 128);
+
+        this.updateBB();
+
+        // Guy's animations
         this.animations = [];
         this.loadAnimations();
     };
@@ -76,6 +82,24 @@ class Guy {
             640 - 128, 0, 128, 128, 5, 0.1);
     };
 
+    updateBB() {
+        this.BB = new BoundingBox(this.x, this.y, 128, 128);
+        // Mario code for BB updating
+        // if (this.size === 0 || this.size === 3) {
+        //     this.BB = new BoundingBox(this.x, this.y, PARAMS.BLOCKWIDTH, PARAMS.BLOCKWIDTH);
+        // }
+        // else {
+        //     if (this.game.down) // big mario is crouching
+        //         this.BB = new BoundingBox(this.x, this.y + PARAMS.BLOCKWIDTH, PARAMS.BLOCKWIDTH, PARAMS.BLOCKWIDTH);
+        //     else 
+        //         this.BB = new BoundingBox(this.x, this.y, PARAMS.BLOCKWIDTH, PARAMS.BLOCKWIDTH * 2);
+        // }
+    };
+
+    updateLastBB() {
+        this.lastBB = this.BB;
+    };
+    
     die() {
         // NOT IMPLEMENTED YET
     };
@@ -84,34 +108,113 @@ class Guy {
         const TICK = this.game.clockTick;
         const MIN_WALK = 2.453125;
         const MAX_WALK = 93.75;
-        if (this.game.active != true){
-            this.state = 0;
-            //this.x -= MIN_WALK + this.game.clockTick;
+        const MAX_FALL = 270;
+        const FALL = 1800;
+        const FALL_A = 421.875;
+        const ACC_WALK = 133.59375;
+
+        // update velocity
+        if (this.state !== 3) { // not jumping
+            // ground physics
+            if (this.game.active != true){
+                this.state = 0;
+                //this.x -= MIN_WALK + this.game.clockTick;
+            }
+            if (this.game.left == true) {
+                this.facing = 1;
+                this.state = 1;
+                this.x -= MIN_WALK + this.game.clockTick;
+            } else if (this.game.right == true) {
+                this.facing = 0;
+                this.state = 1;
+                this.x += MIN_WALK + this.game.clockTick;
+            }
+
+            this.velocity.y += this.fallAcc * TICK;
+
+            if (this.game.jump) { // jump
+                this.velocity.y = -240;
+                this.fallAcc = FALL;
+                this.state = 3;
+            }
+        } else {
+            // air physics
+            // vertical physics
+            if (this.velocity.y < 0 && this.game.jump) { // holding space while jumping jumps higher
+                if (this.fallAcc === FALL) this.velocity.y -= (FALL - FALL_A) * TICK;
+            }
+
+            // horizontal physics
+            if (this.game.right && !this.game.left) {
+                this.velocity.x += ACC_WALK * TICK;
+            } else if (this.game.left && !this.game.right) {
+                this.velocity.x -= ACC_WALK * TICK;
+            } else {
+                // do nothing
+            }
         }
-        if (this.game.left == true) {
-            this.facing = 1;
-            this.state = 1;
-            this.x -= MIN_WALK + this.game.clockTick;
-        } else if (this.game.right == true) {
-            this.facing = 0;
-            this.state = 1;
-            this.x += MIN_WALK + this.game.clockTick;
-        }
+
+        this.velocity.y += this.fallAcc * TICK;
+
+            // max speed calculation
+            if (this.velocity.y >= MAX_FALL) this.velocity.y = MAX_FALL;
+            if (this.velocity.y <= -MAX_FALL) this.velocity.y = -MAX_FALL;
+
+            if (this.velocity.x >= MAX_WALK) this.velocity.x = MAX_WALK;
+            if (this.velocity.x <= -MAX_WALK) this.velocity.x = -MAX_WALK;
+
+
+            // update position
+            this.x += this.velocity.x * TICK;
+            this.y += this.velocity.y * TICK;
+            this.updateLastBB();
+            this.updateBB();
+
+        // collision
+        var that = this;
+        const tileHeight = 16; // tileHeight = 32 or 16????
+        this.game.entities.forEach(function (entity) {
+            if (entity.BB && that.BB.collide(entity.BB)) {
+                if (that.velocity.y > 0) { // falling
+                    if ((entity instanceof Tile) // landing
+                        && (that.lastBB.bottom) <= entity.BB.top) { // was above last tick
+                        that.y = entity.BB.top - tileHeight; 
+                        that.velocity.y = 0;
+
+                        if(that.state === 3) that.state = 0; // set state to idle
+                        that.updateBB();
+                    }
+                }
+                else if (that.velocity.y < 0) { // jumping
+                    if ((entity instanceof Tile) // hit ceiling
+                        && (that.lastBB.top) >= entity.BB.bottom) { // was below last tick
+
+                        if (that.BB.collide(entity.leftBB) && that.BB.collide(entity.rightBB)) { // collide with the center point of the brick
+                            entity.bounce = true;
+                            that.velocity.y = 0;
+                        }
+                        else if (that.BB.collide(entity.leftBB)) {
+                            that.x = entity.BB.left - tileHeight;
+                        }
+                        else {
+                            that.x = entity.BB.right;
+                        }
+                    }
+                }
+            }
+        });
     }
 
     draw(ctx) {
-        // ADD SCALE LATER ON?/CHANGE HOW I DID SCALING IN ANIMATOR.JS?
         ctx.save(); // Save the current state of the canvas
 
-        // Set the scale (e.g., 2x for double the size or 0.5x for half the size)
-        const scale = 0.5; // Change this value to your desired scale
         ctx.translate(this.x, this.y); // Translate to the character's position
-        ctx.scale(scale, scale);
+
         if (this.dead) {
-            this.animations[4][this.facing].drawFrame(this.game.clockTick, ctx, this.x, this.y);
+            this.animations[4][this.facing].drawFrame(this.game.clockTick, ctx, this.x, this.y, 1);
         } else {
             console.log(this.animations[this.state][this.facing]);
-            this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x, this.y);
+            this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x, this.y, 1);
         }
 
         ctx.restore();
