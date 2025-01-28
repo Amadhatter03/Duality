@@ -167,20 +167,22 @@ class Guy {
             // update position
             this.x += this.velocity.x * TICK;
             this.y += this.velocity.y * TICK;
+            console.log(this.x, this.y);
             this.updateLastBB();
             this.updateBB();
 
         // collision
         var that = this;
-        const tileHeight = 16; // tileHeight = 32 or 16????
+        // IDK WHY but this stops the character from fallling!!
+        const tileHeight = 128; // CUZ OF SCALE
         this.game.entities.forEach(function (entity) {
             if (entity.BB && that.BB.collide(entity.BB)) {
                 if (that.velocity.y > 0) { // falling
                     if ((entity instanceof Tile) // landing
                         && (that.lastBB.bottom) <= entity.BB.top) { // was above last tick
-                        that.y = entity.BB.top - tileHeight; 
                         that.velocity.y = 0;
-
+                        that.y = entity.BB.top - tileHeight;
+                        console.log("detected collision @ ", entity.BB.left, entity.BB.top);
                         if(that.state === 3) that.state = 0; // set state to idle
                         that.updateBB();
                     }
@@ -209,14 +211,16 @@ class Guy {
         ctx.save(); // Save the current state of the canvas
 
         ctx.translate(this.x, this.y); // Translate to the character's position
-
         if (this.dead) {
             this.animations[4][this.facing].drawFrame(this.game.clockTick, ctx, this.x, this.y, 1);
         } else {
-            console.log(this.animations[this.state][this.facing]);
+            //console.log(this.animations[this.state][this.facing]);
             this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x, this.y, 1);
         }
-
+        ctx.strokeStyle = 'Blue';
+        ctx.strokeRect(this.x, this.y,128, 128);
         ctx.restore();
+        ctx.strokeStyle = 'blue';
+        ctx.strokeRect(0, 736, 300, 5);
     }
 }

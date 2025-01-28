@@ -80,6 +80,7 @@ class GameEngine {
 
         this.ctx.canvas.addEventListener("keydown", event => {
             this.keys[event.key] = true
+            console.log("KEY", event.key);
             this.active = true;
             console.log(event.key, this.keys);
             switch (event.code) {
@@ -89,8 +90,9 @@ class GameEngine {
                 case "KeyD":
                     this.right = true;
                     break;
-                case "Space":
-                    this.jump = false;
+                case 'Space':
+                    this.jump = true;
+                    console.log("jump", event.jump);
                     break;  
             }
         });
@@ -104,7 +106,7 @@ class GameEngine {
                 case "KeyD":
                     this.right = false;
                     break;
-                case "Space":
+                case 'Space':
                     this.jump = false;
                     break;    
             }
