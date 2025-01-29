@@ -14,7 +14,7 @@ class Guy {
         this.velocity = {x: 0, y: 0}; // NOT IMPLEMENTED YET
         this.fallAcc = 562.5; // NOT IMPLEMENTED YET
 
-        this.BB = new BoundingBox(this.x, this.y, 128, 128);
+        this.BB = new BoundingBox(this.x +48, this.y +64, 32, 64);
 
         this.updateBB();
 
@@ -69,7 +69,7 @@ class Guy {
         // jump animation (state = 3), facing left (facing = 1)
         this.animations[3][1] = new Animator(ASSET_MANAGER.getAsset(
             "./Sprites/gangster-pixel-character-sprite-sheets-pack/Gangsters_2/JumpLeft.png"),
-            1280 - 128, 0, 128, 128, 10, 0.1);
+            0, 0, 128, 128, 10, 0.1);
 
         // dead animation (state = 4), facing right (facing = 0)
         this.animations[4][0] = new Animator(ASSET_MANAGER.getAsset(
@@ -83,7 +83,7 @@ class Guy {
     };
 
     updateBB() {
-        this.BB = new BoundingBox(this.x, this.y, 128, 128);
+        this.BB = new BoundingBox(this.x +48, this.y +64, 32, 64);
         // Mario code for BB updating
         // if (this.size === 0 || this.size === 3) {
         //     this.BB = new BoundingBox(this.x, this.y, PARAMS.BLOCKWIDTH, PARAMS.BLOCKWIDTH);
@@ -120,11 +120,11 @@ class Guy {
                 this.state = 0;
                 //this.x -= MIN_WALK + this.game.clockTick;
             }
-            if (this.game.left == true) {
+            if (this.game.left == true && this.game.active == true) {
                 this.facing = 1;
                 this.state = 1;
                 this.x -= MIN_WALK + this.game.clockTick;
-            } else if (this.game.right == true) {
+            } else if (this.game.right == true && this.game.active == true) {
                 this.facing = 0;
                 this.state = 1;
                 this.x += MIN_WALK + this.game.clockTick;
@@ -144,7 +144,7 @@ class Guy {
                 if (this.fallAcc === FALL) this.velocity.y -= (FALL - FALL_A) * TICK;
             }
 
-            // horizontal physics
+            // horizontal physics (SOMETHING WITH THIS IS WRONG???)
             if (this.game.right && !this.game.left) {
                 this.velocity.x += ACC_WALK * TICK;
             } else if (this.game.left && !this.game.right) {
@@ -172,12 +172,12 @@ class Guy {
 
         // collision
         var that = this;
-        const tileHeight = 16; // tileHeight = 32 or 16????
+        const tileHeight = 128;
         this.game.entities.forEach(function (entity) {
             if (entity.BB && that.BB.collide(entity.BB)) {
                 if (that.velocity.y > 0) { // falling
                     if ((entity instanceof Tile) // landing
-                        && (that.lastBB.bottom) <= entity.BB.top) { // was above last tick
+                        && (that.lastBB.bottom) >= entity.BB.top) { // was above last tick
                         that.y = entity.BB.top - tileHeight; 
                         that.velocity.y = 0;
 
@@ -190,7 +190,6 @@ class Guy {
                         && (that.lastBB.top) >= entity.BB.bottom) { // was below last tick
 
                         if (that.BB.collide(entity.leftBB) && that.BB.collide(entity.rightBB)) { // collide with the center point of the brick
-                            entity.bounce = true;
                             that.velocity.y = 0;
                         }
                         else if (that.BB.collide(entity.leftBB)) {
@@ -206,17 +205,11 @@ class Guy {
     }
 
     draw(ctx) {
-        ctx.save(); // Save the current state of the canvas
-
-        ctx.translate(this.x, this.y); // Translate to the character's position
-
         if (this.dead) {
             this.animations[4][this.facing].drawFrame(this.game.clockTick, ctx, this.x, this.y, 1);
         } else {
             console.log(this.animations[this.state][this.facing]);
             this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x, this.y, 1);
         }
-
-        ctx.restore();
     }
 }

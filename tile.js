@@ -3,10 +3,7 @@ class Tile {
         Object.assign(this, {game, x, y});
 
         // Bounding Box
-         this.BB = new BoundingBox(this.x, this.y, 32, 16);
-        // this.BB = new BoundingBox(this.x, this.y, this.w, PARAMS.BLOCKWIDTH * 2);
-        // this.leftBB = new BoundingBox(this.x, this.y, PARAMS.BLOCKWIDTH, PARAMS.BLOCKWIDTH * 2)
-        // this.rightBB = new BoundingBox(this.x + this.w - PARAMS.BLOCKWIDTH, this.y, PARAMS.BLOCKWIDTH, PARAMS.BLOCKWIDTH * 2)
+         this.BB = new BoundingBox(this.x, this.y, 62, 32);
 
         // Due to multiple types of tiles, you need to specify more to get sprite
         switch(spriteName) {
