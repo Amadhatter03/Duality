@@ -8,6 +8,6 @@ class Portal {
     update() {}
 
     draw(ctx) {
-        this.sprite.drawFrame(this.game.clockTick, ctx, this.x, this.y, 1);
+        this.sprite.drawFrame(this.game.clockTick, ctx, this.x, this.y, 2.5);
     }
 }

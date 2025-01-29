@@ -93,7 +93,7 @@ class GameEngine {
                 case 'Space':
                     this.jump = true;
                     console.log("jump", event.jump);
-                    break;  
+                    break;
             }
         });
         this.ctx.canvas.addEventListener("keyup", event => {
