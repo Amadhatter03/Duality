@@ -2,19 +2,19 @@
 
 class Guy {
     constructor(game, x, y) {
-        Object.assign(this, {game, x, y});
+        Object.assign(this, { game, x, y });
 
         this.facing = 0; // 0 = right, 1 = left
         this.state = 0; // 0 = idle, 1 = walking, 2 = running, 3 = jumping/falling, 4 = dead
         this.dead = false;
         // Start Pos
-        this.x  = x;
-        this.y  = y;
+        this.x = x;
+        this.y = y;
 
-        this.velocity = {x: 0, y: 0}; // NOT IMPLEMENTED YET
-        this.fallAcc = 562.5; // NOT IMPLEMENTED YET
+        this.velocity = { x: 0, y: 0 }; // NOT IMPLEMENTED YET
+        this.fallAcc = 1000; // NOT IMPLEMENTED YET
 
-        this.BB = new BoundingBox(this.x +48, this.y +64, 32, 64);
+        this.BB = new BoundingBox(this.x + 48, this.y + 64, 32, 64);
 
         this.updateBB();
 
@@ -83,7 +83,7 @@ class Guy {
     };
 
     updateBB() {
-        this.BB = new BoundingBox(this.x +48, this.y +64, 32, 64);
+        this.BB = new BoundingBox(this.x + 48, this.y + 64, 32, 64);
         // Mario code for BB updating
         // if (this.size === 0 || this.size === 3) {
         //     this.BB = new BoundingBox(this.x, this.y, PARAMS.BLOCKWIDTH, PARAMS.BLOCKWIDTH);
@@ -99,41 +99,52 @@ class Guy {
     updateLastBB() {
         this.lastBB = this.BB;
     };
-    
+
     die() {
         // NOT IMPLEMENTED YET
     };
 
     update() {
         const TICK = this.game.clockTick;
-        const MIN_WALK = 2.453125;
-        const MAX_WALK = 93.75;
+        const MIN_WALK = 50;
+        const MAX_WALK = 300;
         const MAX_FALL = 270;
         const FALL = 1800;
         const FALL_A = 421.875;
-        const ACC_WALK = 133.59375;
+        const ACC_WALK = 300;
+        const DEC_WALK = 1000;
+        const JUMP_VEL = -500;
 
         // update velocity
         if (this.state !== 3) { // not jumping
             // ground physics
-            if (this.game.active != true){
+            if (this.game.active != true) {
                 this.state = 0;
                 //this.x -= MIN_WALK + this.game.clockTick;
             }
-            if (this.game.left == true && this.game.active == true) {
+            if (this.game.left == true) {
                 this.facing = 1;
                 this.state = 1;
-                this.x -= MIN_WALK + this.game.clockTick;
-            } else if (this.game.right == true && this.game.active == true) {
+                this.velocity.x -= ACC_WALK * TICK;
+            } else if (this.game.right == true) {
                 this.facing = 0;
                 this.state = 1;
-                this.x += MIN_WALK + this.game.clockTick;
+                this.velocity.x += ACC_WALK * TICK;
+            } else {
+                // Decelerate 
+                if (this.velocity.x > 0) {
+                    this.velocity.x -= DEC_WALK * TICK;
+                }
+                if (this.velocity.x < 0) {
+                    this.velocity.x += DEC_WALK * TICK;
+                }
+                if (Math.abs(this.velocity.x) < MIN_WALK) {
+                    this.velocity.x = 0;
+                }
             }
 
-            this.velocity.y += this.fallAcc * TICK;
-
             if (this.game.jump) { // jump
-                this.velocity.y = -240;
+                this.velocity.y = JUMP_VEL;
                 this.fallAcc = FALL;
                 this.state = 3;
             }
@@ -151,24 +162,19 @@ class Guy {
                 this.velocity.x -= ACC_WALK * TICK;
             } else {
                 // do nothing
+                // Decelerate 
+                if (this.velocity.x > 0) {
+                    this.velocity.x -= DEC_WALK * TICK;
+                }
+                if (this.velocity.x < 0) {
+                    this.velocity.x += DEC_WALK * TICK;
+                }
+                if (Math.abs(this.velocity.x) < MIN_WALK) {
+                    this.velocity.x = 0;
+                }
             }
+            //Add to check min walk (mario)
         }
-
-        this.velocity.y += this.fallAcc * TICK;
-
-            // max speed calculation
-            if (this.velocity.y >= MAX_FALL) this.velocity.y = MAX_FALL;
-            if (this.velocity.y <= -MAX_FALL) this.velocity.y = -MAX_FALL;
-
-            if (this.velocity.x >= MAX_WALK) this.velocity.x = MAX_WALK;
-            if (this.velocity.x <= -MAX_WALK) this.velocity.x = -MAX_WALK;
-
-
-            // update position
-            this.x += this.velocity.x * TICK;
-            this.y += this.velocity.y * TICK;
-            this.updateLastBB();
-            this.updateBB();
 
         // collision
         var that = this;
@@ -178,30 +184,40 @@ class Guy {
                 if (that.velocity.y > 0) { // falling
                     if ((entity instanceof Tile) // landing
                         && (that.lastBB.bottom) >= entity.BB.top) { // was above last tick
-                        that.y = entity.BB.top - tileHeight; 
+                        that.y = entity.BB.top - tileHeight;
                         that.velocity.y = 0;
 
-                        if(that.state === 3) that.state = 0; // set state to idle
+                        if (that.state === 3) that.state = 0; // set state to idle
                         that.updateBB();
                     }
                 }
                 else if (that.velocity.y < 0) { // jumping
                     if ((entity instanceof Tile) // hit ceiling
                         && (that.lastBB.top) >= entity.BB.bottom) { // was below last tick
+                        that.y = entity.BB.bottom;
+                        that.velocity.y = 0;
 
-                        if (that.BB.collide(entity.leftBB) && that.BB.collide(entity.rightBB)) { // collide with the center point of the brick
-                            that.velocity.y = 0;
-                        }
-                        else if (that.BB.collide(entity.leftBB)) {
-                            that.x = entity.BB.left - tileHeight;
-                        }
-                        else {
-                            that.x = entity.BB.right;
-                        }
+
                     }
                 }
             }
         });
+
+        this.velocity.y += this.fallAcc * TICK;
+
+        // max speed calculation
+        if (this.velocity.y >= MAX_FALL) this.velocity.y = MAX_FALL;
+        if (this.velocity.y <= -MAX_FALL) this.velocity.y = -MAX_FALL;
+
+        if (this.velocity.x >= MAX_WALK) this.velocity.x = MAX_WALK;
+        if (this.velocity.x <= -MAX_WALK) this.velocity.x = -MAX_WALK;
+
+
+        // update position
+        this.x += this.velocity.x * TICK;
+        this.y += this.velocity.y * TICK;
+        this.updateLastBB();
+        this.updateBB();
     }
 
     draw(ctx) {

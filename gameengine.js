@@ -98,7 +98,6 @@ class GameEngine {
         });
         this.ctx.canvas.addEventListener("keyup", event => {
             this.keys[event.key] = false
-            this.active = false;
             switch (event.code) {
                 case "KeyA":
                     this.left = false;
@@ -148,6 +147,7 @@ class GameEngine {
     loop() {
         this.clockTick = this.timer.tick();
         this.update();
+        this.active = false;
         this.draw();
     };
 
