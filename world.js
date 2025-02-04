@@ -15,7 +15,7 @@ class World {
         }
 
         this.levels[0][0] = new Animator(
-            ASSET_MANAGER.getAsset("./Sprites/Test Map.png"),
+            ASSET_MANAGER.getAsset("./Sprites/Test Map A.png"),
             0, 0, 512, 384, 1, 1);
 
         this.levels[0][1] = new Animator(

@@ -18,7 +18,7 @@ ASSET_MANAGER.queueDownload("./Sprites/Action Pack - CITY/Action Pack - CITY/Ass
 
 ASSET_MANAGER.queueDownload("./Sprites/Portal.png");
 
-ASSET_MANAGER.queueDownload("./Sprites/Test Map.png");
+ASSET_MANAGER.queueDownload("./Sprites/Test Map A.png");
 ASSET_MANAGER.queueDownload("./Sprites/Test Map B.png");
 
 ASSET_MANAGER.downloadAll(() => {
