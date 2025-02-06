@@ -23,5 +23,10 @@ class Tile {
 
     draw(ctx) {
         this.sprite.drawFrame(this.game.clockTick, ctx, this.x, this.y, 2);
+        if(this.game.debug === true) {
+            ctx.strokeStyle = "green"; // Box color
+            ctx.lineWidth = 2; // Line thickness
+            ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
+        }
     }
 }

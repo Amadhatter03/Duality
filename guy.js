@@ -249,6 +249,17 @@ class Guy {
         } else {
             console.log(this.animations[this.state][this.facing]);
             this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x, this.y, 1);
+            if(this.game.debug === true) {
+                ctx.strokeStyle = "red"; // Box color
+                ctx.lineWidth = 2; // Line thickness
+                ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
+
+                // DEBUG: Display Position and Velocity
+                ctx.fillStyle = "yellow"; // Text color
+                ctx.font = "14px Arial"; // Font size & style
+                ctx.fillText(`Xpos: ${Math.round(this.x)}, Ypos: ${Math.round(this.y)}`, this.BB.x, this.BB.y - 10);
+                ctx.fillText(`VelocityX: ${Math.round(this.velocity.x)}, VelocityY: ${Math.round(this.velocity.y)}`, this.BB.x, this.BB.y - 25);
+            }
         }
     }
 }

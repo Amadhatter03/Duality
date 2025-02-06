@@ -18,6 +18,7 @@ class GameEngine {
         this.right = false;
         this.active = false;
         this.jump = false;
+        this.debug = false;
 
         // Options and the Details
         this.options = options || {
@@ -94,6 +95,15 @@ class GameEngine {
                     this.jump = true;
                     console.log("jump", event.jump);
                     break;
+                case 'KeyM':
+                    if(this.debug === true) {
+                        this.debug = false;
+                    } else {
+                        this.debug = true;
+                    }
+
+                    break;
+
             }
         });
         this.ctx.canvas.addEventListener("keyup", event => {
@@ -107,7 +117,7 @@ class GameEngine {
                     break;
                 case 'Space':
                     this.jump = false;
-                    break;    
+                    break;
             }
         });
     };
