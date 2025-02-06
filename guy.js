@@ -14,7 +14,11 @@ class Guy {
         this.velocity = { x: 0, y: 0 };
         this.fallAcc = 1000;
 
-        this.BB = new BoundingBox(this.x + 48, this.y + 64, 32, 64);
+        this.offsetBBx = 48
+        this.offsetBBy = 60
+        this.BBGuyWidth = 32
+        this.BBGuyHeight = 68
+        this.BB = new BoundingBox(this.x + this.offsetBBx, this.y + this.offsetBBy, this.BBGuyWidth, this.BBGuyHeight);
 
         this.updateBB();
 
@@ -83,7 +87,7 @@ class Guy {
     };
 
     updateBB() {
-        this.BB = new BoundingBox(this.x + 48, this.y + 64, 32, 64);
+        this.BB = new BoundingBox(this.x + this.offsetBBx, this.y + this.offsetBBy, this.BBGuyWidth, this.BBGuyHeight);
         // Mario code for BB updating
         // if (this.size === 0 || this.size === 3) {
         //     this.BB = new BoundingBox(this.x, this.y, PARAMS.BLOCKWIDTH, PARAMS.BLOCKWIDTH);
@@ -205,10 +209,16 @@ class Guy {
                     }
                 }
 
-                // Left/Right movement bugged (Remove else to see)
+                // Left/Right movement bugged (2 issues)
+                // ISSUE 1:
+                // Cannot check for left/right collision if in air (need to remove else)
+                // However, if we remove "else" then Guy stops at every left BB since it counts as a collision, but for some reason but not right?
+                // Also, mid air left/right collision does not work correctly.
+                // ISSUE 2:
+                // If Guy walks into a wall, stops, then walks again, you can sometimes clip through it.
 
                 // Handle left movement 
-                else if(that.velocity.x < 0) { // moving left
+                if(that.velocity.x < 0) { // moving left
                     if ((entity instanceof Tile) // hit left wall
                         && (that.lastBB.left) >= entity.BB.right) { // was to the right of the wall
                         that.x = entity.BB.right - 48; // Adjust position to prevent overlap
