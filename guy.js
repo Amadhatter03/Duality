@@ -11,8 +11,8 @@ class Guy {
         this.x = x;
         this.y = y;
 
-        this.velocity = { x: 0, y: 0 }; // NOT IMPLEMENTED YET
-        this.fallAcc = 1000; // NOT IMPLEMENTED YET
+        this.velocity = { x: 0, y: 0 };
+        this.fallAcc = 1000;
 
         this.BB = new BoundingBox(this.x + 48, this.y + 64, 32, 64);
 
@@ -104,16 +104,32 @@ class Guy {
         // NOT IMPLEMENTED YET
     };
 
+    decelerate() {
+        const MIN_WALK = 50;
+        const DEC_WALK = 1000;
+        const TICK = this.game.clockTick;
+        if (this.velocity.x > 0) {
+            this.velocity.x -= DEC_WALK * TICK;
+        }
+        if (this.velocity.x < 0) {
+            this.velocity.x += DEC_WALK * TICK;
+        }
+        // If the velocity is below a certain threshold, set it to zero to avoid small drifting
+        if (Math.abs(this.velocity.x) < MIN_WALK) {
+            this.velocity.x = 0;
+        }
+    }
+
     update() {
         const TICK = this.game.clockTick;
-        const MIN_WALK = 50;
+        //const MIN_WALK = 50;
         const MAX_WALK = 300;
         const MAX_FALL = 270;
         const FALL = 1800;
         const FALL_A = 421.875;
         const ACC_WALK = 300;
-        const DEC_WALK = 1000;
-        const JUMP_VEL = -500;
+        //const DEC_WALK = 1000;
+        const JUMP_VEL = -350; // -500
 
         // update velocity
         if (this.state !== 3) { // not jumping
@@ -123,24 +139,24 @@ class Guy {
                 //this.x -= MIN_WALK + this.game.clockTick;
             }
             if (this.game.left == true) {
+                 // If moving left, check if we're moving right first and decelerate
+                 if (this.velocity.x > 0) {
+                    this.decelerate(); // Decelerate first before moving in the other direction
+                }
                 this.facing = 1;
                 this.state = 1;
                 this.velocity.x -= ACC_WALK * TICK;
             } else if (this.game.right == true) {
+                // If moving right, check if we're moving left first and decelerate
+                if (this.velocity.x < 0) {
+                    this.decelerate(); // Decelerate first before moving in the other direction
+                }
                 this.facing = 0;
                 this.state = 1;
                 this.velocity.x += ACC_WALK * TICK;
             } else {
                 // Decelerate 
-                if (this.velocity.x > 0) {
-                    this.velocity.x -= DEC_WALK * TICK;
-                }
-                if (this.velocity.x < 0) {
-                    this.velocity.x += DEC_WALK * TICK;
-                }
-                if (Math.abs(this.velocity.x) < MIN_WALK) {
-                    this.velocity.x = 0;
-                }
+                this.decelerate();
             }
 
             if (this.game.jump) { // jump
@@ -155,25 +171,15 @@ class Guy {
                 if (this.fallAcc === FALL) this.velocity.y -= (FALL - FALL_A) * TICK;
             }
 
-            // horizontal physics (SOMETHING WITH THIS IS WRONG???)
+            // horizontal physics
             if (this.game.right && !this.game.left) {
                 this.velocity.x += ACC_WALK * TICK;
             } else if (this.game.left && !this.game.right) {
                 this.velocity.x -= ACC_WALK * TICK;
             } else {
-                // do nothing
                 // Decelerate 
-                if (this.velocity.x > 0) {
-                    this.velocity.x -= DEC_WALK * TICK;
-                }
-                if (this.velocity.x < 0) {
-                    this.velocity.x += DEC_WALK * TICK;
-                }
-                if (Math.abs(this.velocity.x) < MIN_WALK) {
-                    this.velocity.x = 0;
-                }
+                this.decelerate();
             }
-            //Add to check min walk (mario)
         }
 
         // collision
@@ -185,7 +191,7 @@ class Guy {
                     if ((entity instanceof Tile) // landing
                         && (that.lastBB.bottom) >= entity.BB.top) { // was above last tick
                         that.y = entity.BB.top - tileHeight;
-                        that.velocity.y = 0;
+                        that.velocity.y = 0; // Stop vertical velocity
 
                         if (that.state === 3) that.state = 0; // set state to idle
                         that.updateBB();
@@ -195,9 +201,26 @@ class Guy {
                     if ((entity instanceof Tile) // hit ceiling
                         && (that.lastBB.top) >= entity.BB.bottom) { // was below last tick
                         that.y = entity.BB.bottom;
-                        that.velocity.y = 0;
+                        that.velocity.y = 0; // Stop vertical velocity
+                    }
+                }
 
+                // Left/Right movement bugged (Remove else to see)
 
+                // Handle left movement 
+                else if(that.velocity.x < 0) { // moving left
+                    if ((entity instanceof Tile) // hit left wall
+                        && (that.lastBB.left) >= entity.BB.right) { // was to the right of the wall
+                        that.x = entity.BB.right - 48; // Adjust position to prevent overlap
+                        if (that.velocity.x < 0) that.velocity.x = 0; // Stop horizontal velocity
+                    }
+                } 
+                // Handle right movement 
+                else if(that.velocity.x > 0) { // moving right
+                    if ((entity instanceof Tile) // hit right wall
+                        && (that.lastBB.right) <= entity.BB.left) { // was to the left of the wall
+                        that.x = entity.BB.left - 80; // Adjust position to prevent overlap
+                        if (that.velocity.x > 0) that.velocity.x = 0; // Stop horizontal velocity
                     }
                 }
             }
