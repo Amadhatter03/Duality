@@ -192,7 +192,7 @@ class Guy {
         this.game.entities.forEach(function (entity) {
             if (entity.BB && that.BB.collide(entity.BB)) {
                 if (that.velocity.y > 0) { // falling
-                    if ((entity instanceof Tile) // landing
+                    if (((entity instanceof Tile) || (entity instanceof LittleBox)) // landing
                         && (that.lastBB.bottom) >= entity.BB.top) { // was above last tick
                         that.y = entity.BB.top - tileHeight;
                         that.velocity.y = 0; // Stop vertical velocity
@@ -231,6 +231,20 @@ class Guy {
                         && (that.lastBB.right) <= entity.BB.left) { // was to the left of the wall
                         that.x = entity.BB.left - 80; // Adjust position to prevent overlap
                         if (that.velocity.x > 0) that.velocity.x = 0; // Stop horizontal velocity
+                    }
+                }
+
+                // Check if entity is a box
+                if ((entity instanceof LittleBox) && that.lastBB.bottom > entity.BB.top) {
+                    // Box's left is colliding with guy's right
+                    if (that.lastBB.right <= entity.BB.left) {
+                        // Box should move to the right (set its x to guy's right?)
+                        entity.x = that.BB.right;
+                    }
+                    // Box's right is colliding with guy's left
+                    else if (that.lastBB.left >= entity.BB.right) {
+                        // Box should move to the left (set its x to guy's left - width of box?)
+                        entity.x = that.BB.left - 32;
                     }
                 }
             }

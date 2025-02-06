@@ -71,6 +71,8 @@ class SceneManager {
         this.levelEntities[0][0].push(new Tile(this.game, 960, 736, "CITY2_TILE1"));
         // Collision Test
         this.levelEntities[0][0].push(new Tile(this.game, 256, 704, "CITY2_TILE1"));
+        // Box Test
+        this.levelEntities[0][0].push(new LittleBox(this.game, 576, 576));
         // Jump Test
         this.levelEntities[0][0].push(new Tile(this.game, 576, 608, "CITY2_TILE1"));
         this.levelEntities[0][0].push(new Tile(this.game, 640, 608, "CITY2_TILE1"));
@@ -102,6 +104,8 @@ class SceneManager {
         this.levelEntities[0][1].push(new Tile(this.game, 960, 736, "CITY2_TILE1"));
         // Collision Test
         this.levelEntities[0][1].push(new Tile(this.game, 448, 672, "CITY2_TILE1"));
+        // Box Test
+        this.levelEntities[0][1].push(new LittleBox(this.game, 192, 704));
         // Jump Test
         this.levelEntities[0][1].push(new Tile(this.game, 576, 608, "CITY2_TILE1"));
         this.levelEntities[0][1].push(new Tile(this.game, 640, 608, "CITY2_TILE1"));
