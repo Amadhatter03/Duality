@@ -269,6 +269,11 @@ class Guy {
                         entity.x = that.BB.left - 32;
                     }
                 }
+
+                if ((entity instanceof KillBox)) {
+                    that.x = 0;
+                    that.y = 250;
+                }
             }
         });
         this.updateBB();

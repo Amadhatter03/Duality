@@ -83,6 +83,7 @@ class SceneManager {
         this.levelEntities[0][0].push(new Tile(this.game, 960, 608, "CITY2_TILE1"));
         // Background + Portal
         this.levelEntities[0][0].push(new Portal(this.game, 905, 520));
+        this.levelEntities[0][0].push(new KillBox(this.game, 850, 520));
         this.levelEntities[0][0].push(new World(this.game, 0, 0, 0, 0));
 
         // Tiles
