@@ -186,11 +186,29 @@ class Guy {
             }
         }
 
+        // Fall
+        this.velocity.y += this.fallAcc * TICK;
+
+        // max speed calculation
+        if (this.velocity.y >= MAX_FALL) this.velocity.y = MAX_FALL;
+        if (this.velocity.y <= -MAX_FALL) this.velocity.y = -MAX_FALL;
+
+        if (this.velocity.x >= MAX_WALK) this.velocity.x = MAX_WALK;
+        if (this.velocity.x <= -MAX_WALK) this.velocity.x = -MAX_WALK;
+
+
+        // update position
+        this.x += this.velocity.x * TICK;
+        this.y += this.velocity.y * TICK;
+        this.updateLastBB();
+        this.updateBB();
+
         // collision
         var that = this;
         const tileHeight = 128;
         this.game.entities.forEach(function (entity) {
             if (entity.BB && that.BB.collide(entity.BB)) {
+                // Y collisions
                 if (that.velocity.y > 0) { // falling
                     if (((entity instanceof Tile) || (entity instanceof LittleBox)) // landing
                         && (that.lastBB.bottom) >= entity.BB.top) { // was above last tick
@@ -216,13 +234,17 @@ class Guy {
                 // Also, mid air left/right collision does not work correctly.
                 // ISSUE 2:
                 // If Guy walks into a wall, stops, then walks again, you can sometimes clip through it.
-
+            }
+        });
+        this.game.entities.forEach(function (entity) {
+            if (entity.BB && that.BB.collide(entity.BB)) {
+                // X Collisions
                 // Handle left movement 
                 if(that.velocity.x < 0) { // moving left
                     if ((entity instanceof Tile) // hit left wall
                         && (that.lastBB.left) >= entity.BB.right) { // was to the right of the wall
                         that.x = entity.BB.right - 48; // Adjust position to prevent overlap
-                        if (that.velocity.x < 0) that.velocity.x = 0; // Stop horizontal velocity
+                        that.velocity.x = 0; // Stop horizontal velocity
                     }
                 } 
                 // Handle right movement 
@@ -230,7 +252,7 @@ class Guy {
                     if ((entity instanceof Tile) // hit right wall
                         && (that.lastBB.right) <= entity.BB.left) { // was to the left of the wall
                         that.x = entity.BB.left - 80; // Adjust position to prevent overlap
-                        if (that.velocity.x > 0) that.velocity.x = 0; // Stop horizontal velocity
+                        that.velocity.x = 0; // Stop horizontal velocity
                     }
                 }
 
@@ -249,21 +271,6 @@ class Guy {
                 }
             }
         });
-
-        this.velocity.y += this.fallAcc * TICK;
-
-        // max speed calculation
-        if (this.velocity.y >= MAX_FALL) this.velocity.y = MAX_FALL;
-        if (this.velocity.y <= -MAX_FALL) this.velocity.y = -MAX_FALL;
-
-        if (this.velocity.x >= MAX_WALK) this.velocity.x = MAX_WALK;
-        if (this.velocity.x <= -MAX_WALK) this.velocity.x = -MAX_WALK;
-
-
-        // update position
-        this.x += this.velocity.x * TICK;
-        this.y += this.velocity.y * TICK;
-        this.updateLastBB();
         this.updateBB();
     }
 
@@ -281,7 +288,7 @@ class Guy {
                 // DEBUG: Display Position and Velocity
                 ctx.fillStyle = "yellow"; // Text color
                 ctx.font = "14px Arial"; // Font size & style
-                ctx.fillText(`Xpos: ${Math.round(this.x)}, Ypos: ${Math.round(this.y)}`, this.BB.x, this.BB.y - 10);
+                ctx.fillText(`Xpos: ${this.x}, Ypos: ${this.y}`, this.BB.x, this.BB.y - 10);
                 ctx.fillText(`VelocityX: ${Math.round(this.velocity.x)}, VelocityY: ${Math.round(this.velocity.y)}`, this.BB.x, this.BB.y - 25);
             }
         }
