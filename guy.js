@@ -8,6 +8,9 @@ class Guy {
         this.state = 0; // 0 = idle, 1 = walking, 2 = running, 3 = jumping/falling, 4 = dead
         this.dead = false;
         // Start Pos
+        this.startX = x;
+        this.startY = y;
+        // x and y pos
         this.x = x;
         this.y = y;
 
@@ -226,14 +229,6 @@ class Guy {
                         that.velocity.y = 0; // Stop vertical velocity
                     }
                 }
-
-                // Left/Right movement bugged (2 issues)
-                // ISSUE 1:
-                // Cannot check for left/right collision if in air (need to remove else)
-                // However, if we remove "else" then Guy stops at every left BB since it counts as a collision, but for some reason but not right?
-                // Also, mid air left/right collision does not work correctly.
-                // ISSUE 2:
-                // If Guy walks into a wall, stops, then walks again, you can sometimes clip through it.
             }
         });
         this.game.entities.forEach(function (entity) {
@@ -271,8 +266,8 @@ class Guy {
                 }
 
                 if ((entity instanceof KillBox)) {
-                    that.x = 0;
-                    that.y = 250;
+                    that.x = that.startX;
+                    that.y = that.startY;
                 }
             }
         });

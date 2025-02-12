@@ -1,8 +1,8 @@
 class SceneManager {
     constructor(game) {
         this.game = game;
-        this.guy = new Guy(this.game, 0, 250);
-        this.level = 0;
+        this.guy = new Guy(this.game, -32, 608);
+        this.level = 1;
         this.reality = 0;
 
         this.levelEntities = [];
@@ -52,6 +52,7 @@ class SceneManager {
             }
         }
 
+        // level 0 Reality 0
         // Tiles
         this.levelEntities[0][0].push(new Tile(this.game, 0, 736, "CITY2_TILE1"));
         this.levelEntities[0][0].push(new Tile(this.game, 64, 736, "CITY2_TILE1"));
@@ -81,11 +82,12 @@ class SceneManager {
         this.levelEntities[0][0].push(new Tile(this.game, 832, 608, "CITY2_TILE1"));
         this.levelEntities[0][0].push(new Tile(this.game, 896, 608, "CITY2_TILE1"));
         this.levelEntities[0][0].push(new Tile(this.game, 960, 608, "CITY2_TILE1"));
-        // Background + Portal
+        // Background + Portal + Killbox test
         this.levelEntities[0][0].push(new Portal(this.game, 905, 520));
-        this.levelEntities[0][0].push(new KillBox(this.game, 850, 520));
+        this.levelEntities[0][0].push(new KillBox(this.game, 850, 520, 32, 32));
         this.levelEntities[0][0].push(new World(this.game, 0, 0, 0, 0));
 
+        // level 0 Reality 1
         // Tiles
         this.levelEntities[0][1].push(new Tile(this.game, 0, 736, "CITY2_TILE1"));
         this.levelEntities[0][1].push(new Tile(this.game, 64, 736, "CITY2_TILE1"));
@@ -118,5 +120,31 @@ class SceneManager {
         // Background + Portal
         this.levelEntities[0][1].push(new Portal(this.game, 905, 520));
         this.levelEntities[0][1].push(new World(this.game, 0, 0, 0, 1));
+
+        /////////////////////////////////////////////////////////////////////////////////
+
+        // level 1 Reality 0
+        // Floor tiles
+        this.levelEntities[1][0].push(new Tile(this.game, 0, 736, "CITY2_TILE1"));
+        // Kill Tiles (Under the map)
+        this.levelEntities[1][0].push(new KillBox(this.game, 64, 896, 892, 16));
+        // Alternating platforms (665 good start) (256 seperator)
+        this.levelEntities[1][0].push(new Tile(this.game, 448, 633, "CITY2_TILE1"));
+        this.levelEntities[1][0].push(new Tile(this.game, 896, 585, "CITY2_TILE1"));
+        // Background + Portal
+        this.levelEntities[1][0].push(new Portal(this.game, 896, 505));
+        this.levelEntities[1][0].push(new World(this.game, 0, 0, 1, 0));
+
+        // level 1 Reality 1
+        // Floor
+        this.levelEntities[1][1].push(new Tile(this.game, 0, 736, "CITY2_TILE1"));
+        // Kill Tiles (Under the map)
+        this.levelEntities[1][1].push(new KillBox(this.game, 64, 896, 892, 16));
+        // Alternating platforms (665 good start)
+        this.levelEntities[1][1].push(new Tile(this.game, 192, 665, "CITY2_TILE1"));
+        this.levelEntities[1][1].push(new Tile(this.game, 704, 665, "CITY2_TILE1"));
+        // Background + Portal
+        this.levelEntities[1][1].push(new Portal(this.game, 896, 505));
+        this.levelEntities[1][1].push(new World(this.game, 0, 0, 1, 1));
     }
 }
