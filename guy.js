@@ -108,7 +108,8 @@ class Guy {
     };
 
     die() {
-        // NOT IMPLEMENTED YET
+        this.x = this.startX;
+        this.y = this.startY;
     };
 
     decelerate() {
@@ -251,6 +252,11 @@ class Guy {
                     }
                 }
 
+                // Check if entity is a KillBox
+                if ((entity instanceof KillBox)) {
+                    that.die()
+                }
+
                 // Check if entity is a box
                 if ((entity instanceof LittleBox) && that.lastBB.bottom > entity.BB.top) {
                     // Box's left is colliding with guy's right
@@ -263,11 +269,6 @@ class Guy {
                         // Box should move to the left (set its x to guy's left - width of box?)
                         entity.x = that.BB.left - 32;
                     }
-                }
-
-                if ((entity instanceof KillBox)) {
-                    that.x = that.startX;
-                    that.y = that.startY;
                 }
             }
         });
