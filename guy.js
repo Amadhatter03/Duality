@@ -6,6 +6,7 @@ class Guy {
 
         this.facing = 0; // 0 = right, 1 = left
         this.state = 0; // 0 = idle, 1 = walking, 2 = running, 3 = jumping/falling, 4 = dead
+        this.portalReady = false;
         this.dead = false;
         // Start Pos
         this.startX = x;
@@ -251,6 +252,16 @@ class Guy {
                         that.velocity.x = 0; // Stop horizontal velocity
                     }
                 }
+
+                if ((entity instanceof LeftBoundary)) {
+                    that.x = entity.BB.right - 48;
+                }
+
+                if ((entity instanceof RightBoundary)) {
+                    that.x = entity.BB.left - 80;
+                }
+
+                that.portalReady = (entity instanceof Portal);
 
                 // Check if entity is a KillBox
                 if ((entity instanceof KillBox)) {
