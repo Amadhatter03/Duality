@@ -227,7 +227,7 @@ class Guy {
                 else if (that.velocity.y < 0) { // jumping
                     if ((entity instanceof Tile) // hit ceiling
                         && (that.lastBB.top) >= entity.BB.bottom) { // was below last tick
-                        that.y = entity.BB.bottom;
+                        that.y = entity.BB.bottom - 60;
                         that.velocity.y = 0; // Stop vertical velocity
                     }
                 }
