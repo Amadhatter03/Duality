@@ -5,6 +5,9 @@ class SceneManager {
         this.level = 0;
         this.puzzle = 0;
         this.reality = 0;
+        this.lastLevel = 0 // Change this variable everytime a new level has been made (NEEDS TO BE CHANGED TO 2)!!!!!
+        this.lastPuzzle = 1 // There are 3 puzzles per level (NEEDS TO BE CHANGED TO 2)!!!!!
+        this.canvasHeight = this.game.ctx.canvas.height;
 
         this.levelEntities = [];
         this.loadAllLevels();
@@ -25,16 +28,22 @@ class SceneManager {
                     this.loadLevel();
                     break;
                 case "KeyE":
-                    let currentEnd = 1  // Change this variable everytime a new level has been made
-                    if (this.guy.portalReady && this.level < currentEnd) {
-                        this.level += 1;
-                        this.puzzle = 0;
-                        this.reality = 0;
+                    if (this.guy.portalReady) {
+                        if(this.level == this.lastLevel && this.puzzle == this.lastPuzzle) { // Last level and last puzzle (win screen)
+                            // Win screen Setup
 
+                        } else if(this.puzzle == 2) { // last puzzle -> next puzzle (change 2 ->  lastPuzzle when all levels implemented)
+                            this.level += 1;
+                            this.puzzle = 0;
+                            this.reality = 0;
+                        } else if(this.puzzle < this.lastPuzzle) { // Increment puzzle (this can just be an else when all levels implemented)
+                            this.puzzle += 1;
+                            this.reality = 0;
+                        }
+                    }
                         this.loadLevel();
                         this.guy.die();
                         break;
-                    }
             }
         });
     }
@@ -69,7 +78,7 @@ class SceneManager {
 
         // Push Level Entities
         this.push00();
-        this.push10()
+        this.push01();
         
     }
     // Level 0 Puzzle 0
@@ -107,8 +116,8 @@ class SceneManager {
         // Background + Portal + Killbox test
         this.levelEntities[0][0][0].push(new Portal(this.game, 905, 520));
         this.levelEntities[0][0][0].push(new KillBox(this.game, 850, 480, 32, 32));
-        this.levelEntities[0][0][0].push(new LeftBoundary(this.game, -10, 0, 10, 768));
-        this.levelEntities[0][0][0].push(new RightBoundary(this.game, 1024, 0, 10, 768));
+        this.levelEntities[0][0][0].push(new LeftBoundary(this.game, -10, 0, 10, this.canvasHeight));
+        this.levelEntities[0][0][0].push(new RightBoundary(this.game, 1024, 0, 10, this.canvasHeight));
         this.levelEntities[0][0][0].push(new World(this.game, 0, 0, 0, 0));
 
         // Reality 1
@@ -143,14 +152,41 @@ class SceneManager {
         this.levelEntities[0][0][1].push(new Tile(this.game, 960, 608, "CITY2_TILE1"));
         // Background + Portal
         this.levelEntities[0][0][1].push(new Portal(this.game, 905, 520));
-        this.levelEntities[0][0][1].push(new LeftBoundary(this.game, -10, 0, 10, 768));
-        this.levelEntities[0][0][1].push(new RightBoundary(this.game, 1024, 0, 10, 768));
+        this.levelEntities[0][0][1].push(new LeftBoundary(this.game, -10, 0, 10, this.canvasHeight));
+        this.levelEntities[0][0][1].push(new RightBoundary(this.game, 1024, 0, 10, this.canvasHeight));
         this.levelEntities[0][0][1].push(new World(this.game, 0, 0, 0, 1));
     }
 
     // Level 0 Puzzle 1
     push01(){
+        // Reality 0
+        // Floor tiles
+        this.levelEntities[0][1][0].push(new Tile(this.game, 0, 736, "CITY2_TILE1"));
+        // Kill Tiles
+        this.levelEntities[0][1][0].push(new KillBox(this.game, 64, 896, 1064, 16)); // under the map
+        // Alternating platforms (665 good start) (256 seperator)
+        this.levelEntities[0][1][0].push(new Tile(this.game, 448, 633, "CITY2_TILE1"));
+        this.levelEntities[0][1][0].push(new Tile(this.game, 896, 585, "CITY2_TILE1"));
+        // Background + Portal
+        this.levelEntities[0][1][0].push(new Portal(this.game, 896, 505));
+        this.levelEntities[0][1][0].push(new LeftBoundary(this.game, -10, 0, 10, this.canvasHeight));
+        this.levelEntities[0][1][0].push(new RightBoundary(this.game, 1024, 0, 10, this.canvasHeight));
+        this.levelEntities[0][1][0].push(new World(this.game, 0, 0, 1, 0));
 
+        // Reality 1
+        // Floor
+        this.levelEntities[0][1][1].push(new Tile(this.game, 0, 736, "CITY2_TILE1"));
+        // Kill Tiles
+        this.levelEntities[0][1][1].push(new KillBox(this.game, 64, 896, 1064, 16)); // under the map
+
+        // Alternating platforms (665 good start)
+        this.levelEntities[0][1][1].push(new Tile(this.game, 192, 665, "CITY2_TILE1"));
+        this.levelEntities[0][1][1].push(new Tile(this.game, 704, 665, "CITY2_TILE1"));
+        // Background + Portal
+        this.levelEntities[0][1][1].push(new Portal(this.game, 896, 505));
+        this.levelEntities[0][1][1].push(new LeftBoundary(this.game, -10, 0, 10, this.canvasHeight));
+        this.levelEntities[0][1][1].push(new RightBoundary(this.game, 1024, 0, 10, this.canvasHeight));
+        this.levelEntities[0][1][1].push(new World(this.game, 0, 0, 1, 1));
     }
 
     // Level 0 Puzzle 2
@@ -162,33 +198,7 @@ class SceneManager {
 
     // Level 1 Puzzle 0
     push10(){
-        // Reality 0
-        // Floor tiles
-        this.levelEntities[1][0][0].push(new Tile(this.game, 0, 736, "CITY2_TILE1"));
-        // Kill Tiles (Under the map)
-        this.levelEntities[1][0][0].push(new KillBox(this.game, 64, 896, 960, 16));
-        // Alternating platforms (665 good start) (256 seperator)
-        this.levelEntities[1][0][0].push(new Tile(this.game, 448, 633, "CITY2_TILE1"));
-        this.levelEntities[1][0][0].push(new Tile(this.game, 896, 585, "CITY2_TILE1"));
-        // Background + Portal
-        this.levelEntities[1][0][0].push(new Portal(this.game, 896, 505));
-        this.levelEntities[1][0][0].push(new LeftBoundary(this.game, -10, 0, 10, 768));
-        this.levelEntities[1][0][0].push(new RightBoundary(this.game, 1024, 0, 10, 768));
-        this.levelEntities[1][0][0].push(new World(this.game, 0, 0, 1, 0));
 
-        // Reality 1
-        // Floor
-        this.levelEntities[1][0][1].push(new Tile(this.game, 0, 736, "CITY2_TILE1"));
-        // Kill Tiles (Under the map)
-        this.levelEntities[1][0][1].push(new KillBox(this.game, 64, 896, 892, 16));
-        // Alternating platforms (665 good start)
-        this.levelEntities[1][0][1].push(new Tile(this.game, 192, 665, "CITY2_TILE1"));
-        this.levelEntities[1][0][1].push(new Tile(this.game, 704, 665, "CITY2_TILE1"));
-        // Background + Portal
-        this.levelEntities[1][0][1].push(new Portal(this.game, 896, 505));
-        this.levelEntities[1][0][1].push(new LeftBoundary(this.game, -10, 0, 10, 768));
-        this.levelEntities[1][0][1].push(new RightBoundary(this.game, 1024, 0, 10, 768));
-        this.levelEntities[1][0][1].push(new World(this.game, 0, 0, 1, 1));
     }
 
     // Level 1 Puzzle 1

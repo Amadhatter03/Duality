@@ -11,13 +11,14 @@ ASSET_MANAGER.queueDownload("./Sprites/gangster-pixel-character-sprite-sheets-pa
 ASSET_MANAGER.queueDownload("./Sprites/gangster-pixel-character-sprite-sheets-pack/Gangsters_2/Jump.png");
 ASSET_MANAGER.queueDownload("./Sprites/gangster-pixel-character-sprite-sheets-pack/Gangsters_2/JumpLeft.png");
 
-
 // Tile Sprites
 ASSET_MANAGER.queueDownload("./Sprites/Sidescroller Shooter - Central City/Sidescroller Shooter - Central City/Assets/Tiles.png");
 ASSET_MANAGER.queueDownload("./Sprites/Action Pack - CITY/Action Pack - CITY/Assets/Assets_City.png");
 
+// Portal Sprite
 ASSET_MANAGER.queueDownload("./Sprites/Portal.png");
 
+// Background Map Sprites
 ASSET_MANAGER.queueDownload("./Sprites/Test Map A.png");
 ASSET_MANAGER.queueDownload("./Sprites/Test Map B.png");
 

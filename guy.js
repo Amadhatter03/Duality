@@ -214,7 +214,11 @@ class Guy {
         this.game.entities.forEach(function (entity) {
             if (entity.BB && that.BB.collide(entity.BB)) {
                 // Y collisions
-                if (that.velocity.y > 0) { // falling
+                // Check if entity is a KillBox
+                if ((entity instanceof KillBox)) {
+                    that.die()
+                } 
+                else if (that.velocity.y > 0) { // falling
                     if (((entity instanceof Tile) || (entity instanceof LittleBox)) // landing
                         && (that.lastBB.bottom) >= entity.BB.top) { // was above last tick
                         that.y = entity.BB.top - tileHeight;
@@ -236,51 +240,43 @@ class Guy {
         this.game.entities.forEach(function (entity) {
             if (entity.BB && that.BB.collide(entity.BB)) {
                 // X Collisions
-                // Handle left movement 
-                if(that.velocity.x < 0) { // moving left
+                // Check if entity is a KillBox
+                if ((entity instanceof KillBox)) {
+                    that.die()
+                }
+                else if(that.velocity.x < 0) { // moving left
                     if ((entity instanceof Tile) // hit left wall
                         && (that.lastBB.left) >= entity.BB.right) { // was to the right of the wall
                         that.x = entity.BB.right - 48; // Adjust position to prevent overlap
                         that.velocity.x = 0; // Stop horizontal velocity
                     }
+                    // Left side of world
+                    else if ((entity instanceof LeftBoundary)) {
+                        that.x = entity.BB.right - 48;
+                    }
+                    // Check if entity is a box
+                    else if ((entity instanceof LittleBox) && that.lastBB.bottom > entity.BB.top) {
+                        entity.x = that.BB.left - 32; // Box should move to the left
+                    }
                 } 
-                // Handle right movement 
                 else if(that.velocity.x > 0) { // moving right
                     if ((entity instanceof Tile) // hit right wall
                         && (that.lastBB.right) <= entity.BB.left) { // was to the left of the wall
                         that.x = entity.BB.left - 80; // Adjust position to prevent overlap
                         that.velocity.x = 0; // Stop horizontal velocity
                     }
+                    // Right side of world
+                    else if ((entity instanceof RightBoundary)) {
+                        that.x = entity.BB.left - 80;
+                    }
+                    // Check if entity is a box
+                    else if ((entity instanceof LittleBox) && that.lastBB.bottom > entity.BB.top) {
+                        entity.x = that.BB.right; // Box should move to the right
+                    }
                 }
 
-                if ((entity instanceof LeftBoundary)) {
-                    that.x = entity.BB.right - 48;
-                }
-
-                if ((entity instanceof RightBoundary)) {
-                    that.x = entity.BB.left - 80;
-                }
-
+                // Are you in the portal BB (True/False)?
                 that.portalReady = (entity instanceof Portal);
-
-                // Check if entity is a KillBox
-                if ((entity instanceof KillBox)) {
-                    that.die()
-                }
-
-                // Check if entity is a box
-                if ((entity instanceof LittleBox) && that.lastBB.bottom > entity.BB.top) {
-                    // Box's left is colliding with guy's right
-                    if (that.lastBB.right <= entity.BB.left) {
-                        // Box should move to the right (set its x to guy's right?)
-                        entity.x = that.BB.right;
-                    }
-                    // Box's right is colliding with guy's left
-                    else if (that.lastBB.left >= entity.BB.right) {
-                        // Box should move to the left (set its x to guy's left - width of box?)
-                        entity.x = that.BB.left - 32;
-                    }
-                }
             }
         });
         this.updateBB();
