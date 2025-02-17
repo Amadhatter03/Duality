@@ -9,7 +9,7 @@ class KillBox {
     draw(ctx) {
         if(this.game.debug === true) {
             ctx.strokeStyle = "red"; // Box color
-            ctx.lineWidth = 2; // Line thickness
+            ctx.lineWidth = 10; // Line thickness
             ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
         }
     }

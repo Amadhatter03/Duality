@@ -18,6 +18,9 @@ ASSET_MANAGER.queueDownload("./Sprites/Action Pack - CITY/Action Pack - CITY/Ass
 // Portal Sprite
 ASSET_MANAGER.queueDownload("./Sprites/Portal.png");
 
+// Tree sprite
+ASSET_MANAGER.queueDownload("./Sprites/Trees/TREE 4_ SANDY GREEN.png");
+ASSET_MANAGER.queueDownload("./Sprites/Trees/TREE 7_SANDY GREEN.png");
 // Background Map Sprites
 ASSET_MANAGER.queueDownload("./Sprites/Test Map A.png");
 ASSET_MANAGER.queueDownload("./Sprites/Test Map B.png");

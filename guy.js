@@ -109,6 +109,7 @@ class Guy {
     };
 
     die() {
+        console.log(this.x, this.y);
         this.x = this.startX;
         this.y = this.startY;
     };
@@ -216,7 +217,8 @@ class Guy {
                 // Y collisions
                 // Check if entity is a KillBox
                 if ((entity instanceof KillBox)) {
-                    that.die()
+                    that.die();
+                    console.log("collided");
                 } 
                 else if (that.velocity.y > 0) { // falling
                     if (((entity instanceof Tile) || (entity instanceof LittleBox)) // landing
@@ -242,7 +244,8 @@ class Guy {
                 // X Collisions
                 // Check if entity is a KillBox
                 if ((entity instanceof KillBox)) {
-                    that.die()
+                    console.log("collided");
+                    that.die();
                 }
                 else if(that.velocity.x < 0) { // moving left
                     if ((entity instanceof Tile) // hit left wall
@@ -286,7 +289,7 @@ class Guy {
         if (this.dead) {
             this.animations[4][this.facing].drawFrame(this.game.clockTick, ctx, this.x, this.y, 1);
         } else {
-            console.log(this.animations[this.state][this.facing]);
+           // console.log(this.animations[this.state][this.facing]);
             this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x, this.y, 1);
             if(this.game.debug === true) {
                 ctx.strokeStyle = "red"; // Box color
