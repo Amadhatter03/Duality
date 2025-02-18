@@ -24,6 +24,8 @@ ASSET_MANAGER.queueDownload("./Sprites/Trees/TREE 7_SANDY GREEN.png");
 // Background Map Sprites
 ASSET_MANAGER.queueDownload("./Sprites/Test Map A.png");
 ASSET_MANAGER.queueDownload("./Sprites/Test Map B.png");
+ASSET_MANAGER.queueDownload("./Sprites/Win A.png");
+ASSET_MANAGER.queueDownload("./Sprites/Win B.png");
 
 ASSET_MANAGER.downloadAll(() => {
 	const canvas = document.getElementById("gameWorld");
