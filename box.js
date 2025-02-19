@@ -3,6 +3,8 @@ class Box {
         Object.assign(this, {game, x, y, scale});
 
         this.BB = new BoundingBox(this.x, this.y, 32 * this.scale, 32 * this.scale);
+        this.atLeftEdge = false; 
+        this.atRightEdge = false; 
 
         this.sprite = new Animator(ASSET_MANAGER.getAsset(
             "./Sprites/Action Pack - CITY/Action Pack - CITY/Assets/Assets_City.png"),
@@ -18,19 +20,25 @@ class Box {
     };
 
     update() {
-        // // Collision
-        // var that = this;
+        // Collision
+        var that = this;
 
-        // this.game.entities.forEach(function (entity) {
-        //     if (entity.BB && that.BB.collide(entity.BB)) {
-        //         if ((entity instanceof LeftBoundary)) {
-
-        //         }
-        //         else if(entity instanceof RightBoundary) { // Right side of world
-        //             that.x = entity.BB.left - that.width * that.scale;
-        //         }
-        //     }
-        // });
+        this.game.entities.forEach(function (entity) {
+            if (entity.BB && that.BB.collide(entity.BB)) {
+                if (entity instanceof LeftBoundary) {
+                    that.x = entity.BB.right;
+                    that.atLeftEdge = true;
+                } else {
+                    that.atLeftEdge = false;
+                }
+                if(entity instanceof RightBoundary) { // Right side of world
+                    that.x = entity.BB.left - 16 * that.scale;
+                    that.atRightEdge = true;
+                } else {
+                    that.atRightEdge = false;
+                }
+            }
+        });
         this.updateLastBB();
         this.updateBB();
     }

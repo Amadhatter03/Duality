@@ -15,6 +15,9 @@ class Guy {
         this.x = x;
         this.y = y;
 
+        // Are we grounded?
+        this.isGrounded = true;
+
         this.velocity = { x: 0, y: 0 };
         this.fallAcc = 1000;
 
@@ -169,10 +172,11 @@ class Guy {
                 this.decelerate();
             }
 
-            if (this.game.jump) { // jump
+            if (this.game.jump && this.isGrounded == true && this.velocity.y <= 0) { // jump
                 this.velocity.y = JUMP_VEL;
                 this.fallAcc = FALL;
                 this.state = 3;
+                this.isGrounded = false;
             }
         } else {
             // air physics
@@ -218,17 +222,28 @@ class Guy {
                 // Check if entity is a KillBox
                 if ((entity instanceof KillBox)) {
                     that.die();
-                    console.log("collided");
                 } 
                 else if (that.velocity.y > 0) { // falling
-                    if (((entity instanceof Tile) || (entity instanceof Box)) // landing
-                        && (that.lastBB.bottom) >= entity.BB.top) { // was above last tick
+                    if (((entity instanceof Tile) || (entity instanceof Box)) // landing while not grounded and was above last tick
+                        && ((that.lastBB.bottom) <= entity.BB.top) && (that.isGrounded == false)) {
                         that.y = entity.BB.top - tileHeight;
                         that.velocity.y = 0; // Stop vertical velocity
+                        that.velocity.x = 0; // Stop horizontal velocity
+                        that.isGrounded = true;
 
                         if (that.state === 3) that.state = 0; // set state to idle
                         that.updateBB();
-                    }
+
+                    } else if (((entity instanceof Tile) || (entity instanceof Box)) // landing while grounded and was above last tick
+                    && ((that.lastBB.bottom) <= entity.BB.top) && (that.isGrounded == true)) {
+                    that.y = entity.BB.top - tileHeight;
+                    that.velocity.y = 0; // Stop vertical velocity
+                    that.isGrounded = true;
+
+                    if (that.state === 3) that.state = 0; // set state to idle
+                    that.updateBB();
+
+                }
                 }
                 else if (that.velocity.y < 0) { // jumping
                     if ((entity instanceof Tile) // hit ceiling
@@ -262,7 +277,11 @@ class Guy {
                     }
                     // Check if entity is a box
                     else if ((entity instanceof Box) && that.lastBB.bottom > entity.BB.top) {
-                        entity.x = that.BB.left - 16 * entity.scale; // Box should move to the left
+                        if(entity.atLeftEdge) {
+                            that.x = entity.BB.right - 48;
+                        } else {
+                            entity.x = that.BB.left - 16 * entity.scale; // Box should move to the left
+                        }
                     }
                     else if((entity instanceof Tree)) {
                         that.x = entity.BB.right - 48;
@@ -280,7 +299,11 @@ class Guy {
                     }
                     // Check if entity is a box
                     else if ((entity instanceof Box) && that.lastBB.bottom > entity.BB.top) {
-                        entity.x = that.BB.right; // Box should move to the right
+                        if(entity.atRightEdge) {
+                            that.x = entity.BB.left - 48;
+                        } else {
+                            entity.x = that.BB.right; // Box should move to the right
+                        }
                     }
                     else if((entity instanceof Tree)) {
                         that.x = entity.BB.left - 80;
