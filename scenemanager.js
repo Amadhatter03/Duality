@@ -6,7 +6,7 @@ class SceneManager {
         this.puzzle = 0;
         this.reality = 0;
         this.lastLevel = 0; // Change this variable everytime a new level has been made (NEEDS TO BE CHANGED TO 2)!!!!!
-        this.lastPuzzle = 2; // There are 3 puzzles per level (NEEDS TO BE CHANGED TO 2)!!!!!
+        this.lastPuzzle = 2; // There are 3 puzzles per level
         this.canvasHeight = this.game.ctx.canvas.height;
 
         this.levelEntities = [];
