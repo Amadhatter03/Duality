@@ -3,10 +3,10 @@ class SceneManager {
         this.game = game;
         this.guy = new Guy(this.game, -32, 608);
         this.level = 0;
-        this.puzzle = 0;
+        this.puzzle = 2;
         this.reality = 0;
         this.lastLevel = 0; // Change this variable everytime a new level has been made (NEEDS TO BE CHANGED TO 2)!!!!!
-        this.lastPuzzle = 1; // There are 3 puzzles per level (NEEDS TO BE CHANGED TO 2)!!!!!
+        this.lastPuzzle = 2; // There are 3 puzzles per level (NEEDS TO BE CHANGED TO 2)!!!!!
         this.canvasHeight = this.game.ctx.canvas.height;
 
         this.levelEntities = [];
@@ -93,12 +93,9 @@ class SceneManager {
     }
     // Level 0 Puzzle 0
     push00(){
-        // Reality 0
         // Displaying current level and puzzle
         this.levelEntities[0][0][0].push(new Widget(this.game, 1, 1));
-        // Floor Tiles
-        const KILLW = 30;
-        const KILLH = 18;
+        // Reality 0
         this.levelEntities[0][0][0].push(new Tile(this.game, 0, 736, "CITY2_TILE1"));
         this.levelEntities[0][0][0].push(new Tile(this.game, 64, 736, "CITY2_TILE1"));
         this.levelEntities[0][0][0].push(new Tile(this.game, 128, 736, "CITY2_TILE1"));
@@ -115,22 +112,9 @@ class SceneManager {
         this.levelEntities[0][0][0].push(new Tile(this.game, 832, 736, "CITY2_TILE1"));
         this.levelEntities[0][0][0].push(new Tile(this.game, 896, 736, "CITY2_TILE1"));
         this.levelEntities[0][0][0].push(new Tile(this.game, 960, 736, "CITY2_TILE1"));
-        // Collision Test
-        this.levelEntities[0][0][0].push(new Tile(this.game, 256, 704, "CITY2_TILE1"));
-        this.levelEntities[0][0][0].push(new KillBox(this.game, 256 + KILLW, 704 + KILLH, KILLH, KILLH));
-        // Box Test
-        this.levelEntities[0][0][0].push(new LittleBox(this.game, 576, 576));
-        // Jump Test
-        this.levelEntities[0][0][0].push(new Tile(this.game, 576, 608, "CITY2_TILE1"));
-        this.levelEntities[0][0][0].push(new Tile(this.game, 640, 608, "CITY2_TILE1"));
-        this.levelEntities[0][0][0].push(new Tile(this.game, 704, 608, "CITY2_TILE1"));
-        this.levelEntities[0][0][0].push(new Tile(this.game, 768, 608, "CITY2_TILE1"));
-        this.levelEntities[0][0][0].push(new Tile(this.game, 832, 608, "CITY2_TILE1"));
-        this.levelEntities[0][0][0].push(new Tile(this.game, 896, 608, "CITY2_TILE1"));
-        this.levelEntities[0][0][0].push(new Tile(this.game, 960, 608, "CITY2_TILE1"));
-        // Background + Portal + Killbox test
-        this.levelEntities[0][0][0].push(new Portal(this.game, 905, 520));
-        this.levelEntities[0][0][0].push(new KillBox(this.game, 850, 480, 32, 32));
+        this.levelEntities[0][0][0].push(new Tree(this.game, 128, 700, "STree"));
+        
+        this.levelEntities[0][0][0].push(new Portal(this.game, 905, 650));
         this.levelEntities[0][0][0].push(new LeftBoundary(this.game, -10, 0, 10, this.canvasHeight));
         this.levelEntities[0][0][0].push(new RightBoundary(this.game, 1024, 0, 10, this.canvasHeight));
         this.levelEntities[0][0][0].push(new World(this.game, 0, 0, 0, 0));
@@ -138,7 +122,7 @@ class SceneManager {
         // Reality 1
         // Displaying current level and puzzle
         this.levelEntities[0][0][1].push(new Widget(this.game, 1, 1));
-        // Floor Tiles
+
         this.levelEntities[0][0][1].push(new Tile(this.game, 0, 736, "CITY2_TILE1"));
         this.levelEntities[0][0][1].push(new Tile(this.game, 64, 736, "CITY2_TILE1"));
         this.levelEntities[0][0][1].push(new Tile(this.game, 128, 736, "CITY2_TILE1"));
@@ -155,21 +139,9 @@ class SceneManager {
         this.levelEntities[0][0][1].push(new Tile(this.game, 832, 736, "CITY2_TILE1"));
         this.levelEntities[0][0][1].push(new Tile(this.game, 896, 736, "CITY2_TILE1"));
         this.levelEntities[0][0][1].push(new Tile(this.game, 960, 736, "CITY2_TILE1"));
-        // Collision Test
-        this.levelEntities[0][0][1].push(new Tile(this.game, 448, 672, "CITY2_TILE1"));
-        this.levelEntities[0][0][1].push(new KillBox(this.game, 448 + KILLW, 672 + KILLH, KILLH, KILLH));
-        // Box Test
-        this.levelEntities[0][0][1].push(new LittleBox(this.game, 192, 704));
-        // Jump Test
-        this.levelEntities[0][0][1].push(new Tile(this.game, 576, 608, "CITY2_TILE1"));
-        this.levelEntities[0][0][1].push(new Tile(this.game, 640, 608, "CITY2_TILE1"));
-        this.levelEntities[0][0][1].push(new Tile(this.game, 704, 608, "CITY2_TILE1"));
-        this.levelEntities[0][0][1].push(new Tile(this.game, 768, 608, "CITY2_TILE1"));
-        this.levelEntities[0][0][1].push(new Tile(this.game, 832, 608, "CITY2_TILE1"));
-        this.levelEntities[0][0][1].push(new Tile(this.game, 896, 608, "CITY2_TILE1"));
-        this.levelEntities[0][0][1].push(new Tile(this.game, 960, 608, "CITY2_TILE1"));
-        // Background + Portal
-        this.levelEntities[0][0][1].push(new Portal(this.game, 905, 520));
+        this.levelEntities[0][0][1].push(new Tree(this.game, 800, 530, "BTree"));
+
+        this.levelEntities[0][0][1].push(new Portal(this.game, 905, 650));
         this.levelEntities[0][0][1].push(new LeftBoundary(this.game, -10, 0, 10, this.canvasHeight));
         this.levelEntities[0][0][1].push(new RightBoundary(this.game, 1024, 0, 10, this.canvasHeight));
         this.levelEntities[0][0][1].push(new World(this.game, 0, 0, 0, 1));
@@ -195,7 +167,7 @@ class SceneManager {
         this.levelEntities[0][1][0].push(new Portal(this.game, 896, 505));
         this.levelEntities[0][1][0].push(new LeftBoundary(this.game, -10, 0, 10, this.canvasHeight));
         this.levelEntities[0][1][0].push(new RightBoundary(this.game, 1024, 0, 10, this.canvasHeight));
-        this.levelEntities[0][1][0].push(new World(this.game, 0, 0, 1, 0));
+        this.levelEntities[0][1][0].push(new World(this.game, 0, 0, 0, 0));
 
         // Reality 1
         // Displaying current level and puzzle
@@ -214,14 +186,17 @@ class SceneManager {
         this.levelEntities[0][1][1].push(new Portal(this.game, 896, 505));
         this.levelEntities[0][1][1].push(new LeftBoundary(this.game, -10, 0, 10, this.canvasHeight));
         this.levelEntities[0][1][1].push(new RightBoundary(this.game, 1024, 0, 10, this.canvasHeight));
-        this.levelEntities[0][1][1].push(new World(this.game, 0, 0, 1, 1));
+        this.levelEntities[0][1][1].push(new World(this.game, 0, 0, 0, 1));
     }
 
     // Level 0 Puzzle 2
     push02(){
+        // Reality 0
         // Displaying current level and puzzle
         this.levelEntities[0][2][0].push(new Widget(this.game, 1, 3));
-        //
+        // Floor Tiles
+        const KILLW = 30;
+        const KILLH = 18;
         this.levelEntities[0][2][0].push(new Tile(this.game, 0, 736, "CITY2_TILE1"));
         this.levelEntities[0][2][0].push(new Tile(this.game, 64, 736, "CITY2_TILE1"));
         this.levelEntities[0][2][0].push(new Tile(this.game, 128, 736, "CITY2_TILE1"));
@@ -238,9 +213,85 @@ class SceneManager {
         this.levelEntities[0][2][0].push(new Tile(this.game, 832, 736, "CITY2_TILE1"));
         this.levelEntities[0][2][0].push(new Tile(this.game, 896, 736, "CITY2_TILE1"));
         this.levelEntities[0][2][0].push(new Tile(this.game, 960, 736, "CITY2_TILE1"));
-        this.levelEntities[0][2][0].push(new Tree(this.game, 900, 700, "STree"));
-        this.levelEntities[0][2][0].push(new Tree(this.game, 800, 530, "BTree"));
+        // Entities
+        this.levelEntities[0][2][0].push(new Tree(this.game, 200, 530, "BTree"));
+        this.levelEntities[0][2][0].push(new Grate(this.game, 800, 350, "blue"));
+        this.levelEntities[0][2][0].push(new Waterfall(this.game, 800, 358, "blue"));
+        this.levelEntities[0][2][0].push(new Waterfall(this.game, 800, 382, "blue"));
+        this.levelEntities[0][2][0].push(new Waterfall(this.game, 800, 406, "blue"));
+        this.levelEntities[0][2][0].push(new Waterfall(this.game, 800, 430, "blue"));
+        this.levelEntities[0][2][0].push(new Waterfall(this.game, 800, 454, "blue"));
+        this.levelEntities[0][2][0].push(new Waterfall(this.game, 800, 478, "blue"));
+        this.levelEntities[0][2][0].push(new Waterfall(this.game, 800, 502, "blue"));
+        // Raised Platforms
+        this.levelEntities[0][2][0].push(new Tile(this.game, 576, 550, "CITY2_TILE1"));
+        this.levelEntities[0][2][0].push(new Tile(this.game, 640, 550, "CITY2_TILE1"));
+        this.levelEntities[0][2][0].push(new Tile(this.game, 704, 550, "CITY2_TILE1"));
+        this.levelEntities[0][2][0].push(new Tile(this.game, 768, 550, "CITY2_TILE1"));
+        this.levelEntities[0][2][0].push(new Tile(this.game, 832, 550, "CITY2_TILE1"));
+        this.levelEntities[0][2][0].push(new Tile(this.game, 896, 550, "CITY2_TILE1"));
+        this.levelEntities[0][2][0].push(new Tile(this.game, 960, 550, "CITY2_TILE1"));
+        // Jumping Platforms
+        this.levelEntities[0][2][0].push(new Tile(this.game, 550, 400, "CITY2_TILE1"));
+        this.levelEntities[0][2][0].push(new Tile(this.game, 250, 250, "CITY2_TILE1"));
+        // Background + Portal + Killbox test
+        this.levelEntities[0][2][0].push(new Portal(this.game, -16, 115));
+        this.levelEntities[0][2][0].push(new LeftBoundary(this.game, -10, 0, 10, this.canvasHeight));
+        this.levelEntities[0][2][0].push(new RightBoundary(this.game, 1024, 0, 10, this.canvasHeight));
         this.levelEntities[0][2][0].push(new World(this.game, 0, 0, 0, 0));
+
+        // Reality 1
+        // Displaying current level and puzzle
+        this.levelEntities[0][2][1].push(new Widget(this.game, 1, 3));
+        // Floor Tiles
+        this.levelEntities[0][2][1].push(new Tile(this.game, 0, 736, "CITY2_TILE1"));
+        this.levelEntities[0][2][1].push(new Tile(this.game, 64, 736, "CITY2_TILE1"));
+        this.levelEntities[0][2][1].push(new Tile(this.game, 128, 736, "CITY2_TILE1"));
+        this.levelEntities[0][2][1].push(new Tile(this.game, 192, 736, "CITY2_TILE1"));
+        this.levelEntities[0][2][1].push(new Tile(this.game, 256, 736, "CITY2_TILE1"));
+        this.levelEntities[0][2][1].push(new Tile(this.game, 320, 736, "CITY2_TILE1"));
+        this.levelEntities[0][2][1].push(new Tile(this.game, 384, 736, "CITY2_TILE1"));
+        this.levelEntities[0][2][1].push(new Tile(this.game, 448, 736, "CITY2_TILE1"));
+        this.levelEntities[0][2][1].push(new Tile(this.game, 512, 736, "CITY2_TILE1"));
+        this.levelEntities[0][2][1].push(new Tile(this.game, 576, 736, "CITY2_TILE1"));
+        this.levelEntities[0][2][1].push(new Tile(this.game, 640, 736, "CITY2_TILE1"));
+        this.levelEntities[0][2][1].push(new Tile(this.game, 704, 736, "CITY2_TILE1"));
+        this.levelEntities[0][2][1].push(new Tile(this.game, 768, 736, "CITY2_TILE1"));
+        this.levelEntities[0][2][1].push(new Tile(this.game, 832, 736, "CITY2_TILE1"));
+        this.levelEntities[0][2][1].push(new Tile(this.game, 896, 736, "CITY2_TILE1"));
+        this.levelEntities[0][2][1].push(new Tile(this.game, 960, 736, "CITY2_TILE1"));
+        // Entities
+        this.levelEntities[0][2][1].push(new Box(this.game, 700, 680, 3.5));
+        this.levelEntities[0][2][1].push(new Grate(this.game, 700, 350, "green"));      // Top Grate
+        this.levelEntities[0][2][1].push(new Waterfall(this.game, 700, 358, "green"));
+        this.levelEntities[0][2][1].push(new Waterfall(this.game, 700, 382, "green"));
+        this.levelEntities[0][2][1].push(new Waterfall(this.game, 700, 406, "green"));
+        this.levelEntities[0][2][1].push(new Waterfall(this.game, 700, 430, "green"));
+        this.levelEntities[0][2][1].push(new Waterfall(this.game, 700, 454, "green"));
+        this.levelEntities[0][2][1].push(new Waterfall(this.game, 700, 478, "green"));
+        this.levelEntities[0][2][1].push(new Waterfall(this.game, 700, 502, "green"));
+        this.levelEntities[0][2][1].push(new Grate(this.game, 580, 552, "green"));      // Bottom Grate
+        this.levelEntities[0][2][1].push(new Waterfall(this.game, 580, 560, "green"));
+        this.levelEntities[0][2][1].push(new Waterfall(this.game, 580, 584, "green"));
+        this.levelEntities[0][2][1].push(new Waterfall(this.game, 580, 608, "green"));
+        this.levelEntities[0][2][1].push(new Waterfall(this.game, 580, 632, "green"));
+        this.levelEntities[0][2][1].push(new Waterfall(this.game, 580, 656, "green"));
+        this.levelEntities[0][2][1].push(new Waterfall(this.game, 580, 680, "green"));
+        this.levelEntities[0][2][1].push(new Waterfall(this.game, 580, 704, "green"));
+        // Raised Platforms
+        this.levelEntities[0][2][1].push(new Tile(this.game, 0, 200, "CITY2_TILE1")); // Portal platform
+        this.levelEntities[0][2][1].push(new Tile(this.game, 576, 550, "CITY2_TILE1"));
+        this.levelEntities[0][2][1].push(new Tile(this.game, 640, 550, "CITY2_TILE1"));
+        this.levelEntities[0][2][1].push(new Tile(this.game, 704, 550, "CITY2_TILE1"));
+        this.levelEntities[0][2][1].push(new Tile(this.game, 768, 550, "CITY2_TILE1"));
+        // Jumping Platforms
+        this.levelEntities[0][2][1].push(new Tile(this.game, 300, 500, "CITY2_TILE1"));
+        this.levelEntities[0][2][1].push(new Tile(this.game, 400, 290, "CITY2_TILE1"));
+        // Background + Portal
+        this.levelEntities[0][2][1].push(new Portal(this.game, -16, 115));
+        this.levelEntities[0][2][1].push(new LeftBoundary(this.game, -10, 0, 10, this.canvasHeight));
+        this.levelEntities[0][2][1].push(new RightBoundary(this.game, 1024, 0, 10, this.canvasHeight));
+        this.levelEntities[0][2][1].push(new World(this.game, 0, 0, 0, 1));
     }
 
     pushWin() {

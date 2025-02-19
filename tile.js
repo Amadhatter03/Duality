@@ -1,18 +1,18 @@
 class Tile {
     constructor(game, x, y, spriteName) {
-        Object.assign(this, {game, x, y});
+        Object.assign(this, {game, x, y, spriteName});
 
         // Bounding Box
-         this.BB = new BoundingBox(this.x, this.y, 62, 32);
+        this.BB = new BoundingBox(this.x, this.y, 62, 32);
 
         // Due to multiple types of tiles, you need to specify more to get sprite
         switch(spriteName) {
             case "CITY1_TILE1":
                 this.sprite = new Animator(ASSET_MANAGER.getAsset("./Sprites/Action Pack - CITY/Action Pack - CITY/Assets/Assets_City.png"), 208, 112, 32, 16, 1, 1);
-              break;
+                break;
             case "CITY2_TILE1":
                 this.sprite = new Animator(ASSET_MANAGER.getAsset("./Sprites/Sidescroller Shooter - Central City/Sidescroller Shooter - Central City/Assets/Tiles.png"), 64, 112, 32, 16, 1, 1);
-              break;
+                break;
             default:
                 // default to CITY2_TILE1
                 this.sprite = new Animator(ASSET_MANAGER.getAsset("./Sprites/Sidescroller Shooter - Central City/Sidescroller Shooter - Central City/Assets/Tiles.png"), 64, 112, 32, 16, 1, 1);

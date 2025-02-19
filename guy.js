@@ -135,11 +135,11 @@ class Guy {
         //const MIN_WALK = 50;
         const MAX_WALK = 300;
         const MAX_FALL = 270;
-        const FALL = 1800;
-        const FALL_A = 421.875;
+        const FALL = 2000;  // 1800
+        const FALL_A = 280; // 421.875
         const ACC_WALK = 300;
         //const DEC_WALK = 1000;
-        const JUMP_VEL = -350; // -500
+        const JUMP_VEL = -900; // -500
 
         // update velocity
         if (this.state !== 3) { // not jumping
@@ -221,7 +221,7 @@ class Guy {
                     console.log("collided");
                 } 
                 else if (that.velocity.y > 0) { // falling
-                    if (((entity instanceof Tile) || (entity instanceof LittleBox)) // landing
+                    if (((entity instanceof Tile) || (entity instanceof Box)) // landing
                         && (that.lastBB.bottom) >= entity.BB.top) { // was above last tick
                         that.y = entity.BB.top - tileHeight;
                         that.velocity.y = 0; // Stop vertical velocity
@@ -247,6 +247,9 @@ class Guy {
                     console.log("collided");
                     that.die();
                 }
+                else if ((entity instanceof Waterfall) && (entity.waterType == "green")) {
+                    that.die();
+                }
                 else if(that.velocity.x < 0) { // moving left
                     if ((entity instanceof Tile) // hit left wall
                         && (that.lastBB.left) >= entity.BB.right) { // was to the right of the wall
@@ -258,8 +261,11 @@ class Guy {
                         that.x = entity.BB.right - 48;
                     }
                     // Check if entity is a box
-                    else if ((entity instanceof LittleBox) && that.lastBB.bottom > entity.BB.top) {
-                        entity.x = that.BB.left - 32; // Box should move to the left
+                    else if ((entity instanceof Box) && that.lastBB.bottom > entity.BB.top) {
+                        entity.x = that.BB.left - 16 * entity.scale; // Box should move to the left
+                    }
+                    else if((entity instanceof Tree)) {
+                        that.x = entity.BB.right - 48;
                     }
                 } 
                 else if(that.velocity.x > 0) { // moving right
@@ -273,8 +279,11 @@ class Guy {
                         that.x = entity.BB.left - 80;
                     }
                     // Check if entity is a box
-                    else if ((entity instanceof LittleBox) && that.lastBB.bottom > entity.BB.top) {
+                    else if ((entity instanceof Box) && that.lastBB.bottom > entity.BB.top) {
                         entity.x = that.BB.right; // Box should move to the right
+                    }
+                    else if((entity instanceof Tree)) {
+                        that.x = entity.BB.left - 80;
                     }
                 }
 

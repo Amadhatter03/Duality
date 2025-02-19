@@ -9,9 +9,13 @@ class Tree {
         switch(spriteName) {
             case "STree":
                 this.sprite = new Animator(ASSET_MANAGER.getAsset("./Sprites/Trees/TREE 7_SANDY GREEN.png"), 0, 0, 33, 35, 1, 1);
+                // Small Bounding Box
+                this.BB = new BoundingBox(this.x, this.y, 32, 32);
                 break;
             case "BTree":
                 this.sprite = new Animator(ASSET_MANAGER.getAsset("./Sprites/Trees/TREE 4_ SANDY GREEN.png"), 0, 0, 46, 68, 1, 1);
+                // Big mBounding Box
+                this.BB = new BoundingBox(this.x + 60, this.y, 32, 210);
                 break;
         }
     }

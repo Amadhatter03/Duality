@@ -21,6 +21,11 @@ ASSET_MANAGER.queueDownload("./Sprites/Portal.png");
 // Tree sprite
 ASSET_MANAGER.queueDownload("./Sprites/Trees/TREE 4_ SANDY GREEN.png");
 ASSET_MANAGER.queueDownload("./Sprites/Trees/TREE 7_SANDY GREEN.png");
+// Falling Water sprites
+ASSET_MANAGER.queueDownload("./Sprites/waterfall/waterfall_blue_single-Sheet.png");
+ASSET_MANAGER.queueDownload("./Sprites/waterfall/waterfall_green_single-Sheet.png");
+ASSET_MANAGER.queueDownload("./Sprites/waterfall/waterfall_blue_gate-Sheet.png");
+ASSET_MANAGER.queueDownload("./Sprites/waterfall/waterfall_green_gate-Sheet.png");
 // Background Map Sprites
 ASSET_MANAGER.queueDownload("./Sprites/Test Map A.png");
 ASSET_MANAGER.queueDownload("./Sprites/Test Map B.png");
