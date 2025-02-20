@@ -19,6 +19,7 @@ class GameEngine {
         this.active = false;
         this.jump = false;
         this.debug = false;
+        this.score = 0;
 
         // Options and the Details
         this.options = options || {
@@ -134,6 +135,10 @@ class GameEngine {
         for (let i = this.entities.length - 1; i >= 0; i--) {
             this.entities[i].draw(this.ctx, this);
         }
+
+        this.ctx.fillStyle = "white"; // Text color
+        this.ctx.font = "25px Arial"; // Font size & style
+        this.ctx.fillText(`Score: ` + this.score, 0, 50);
     };
 
     update() {

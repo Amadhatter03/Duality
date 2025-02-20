@@ -32,6 +32,7 @@ ASSET_MANAGER.queueDownload("./Sprites/Test Map B.png");
 ASSET_MANAGER.queueDownload("./Sprites/Win A.png");
 ASSET_MANAGER.queueDownload("./Sprites/Win B.png");
 
+ASSET_MANAGER.queueDownload("./Sprites/SpinningCoin/SpinningCoin/Spinning Coin.png");
 ASSET_MANAGER.downloadAll(() => {
 	const canvas = document.getElementById("gameWorld");
 	const ctx = canvas.getContext("2d");

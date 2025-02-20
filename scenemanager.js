@@ -34,6 +34,7 @@ class SceneManager {
                             this.level = 0;
                             this.puzzle = 3;
                             this.reality = 0;
+                            this.game.score += 1000;
                         }
 
                         // last puzzle -> next puzzle (change 2 ->  lastPuzzle when all levels implemented)
@@ -41,12 +42,14 @@ class SceneManager {
                             this.level += 1;
                             this.puzzle = 0;
                             this.reality = 0;
+                            this.game.score += 1000;
                         }
 
                         // Increment puzzle (this can just be an else when all levels implemented)
                         else if(this.puzzle < this.lastPuzzle) {
                             this.puzzle += 1;
                             this.reality = 0;
+                            this.game.score += 500;
                         }
 
                         this.loadLevel();
@@ -102,10 +105,12 @@ class SceneManager {
         this.levelEntities[0][0][0].push(new Tile(this.game, 128, 736, "CITY2_TILE1"));
         this.levelEntities[0][0][0].push(new Tile(this.game, 192, 736, "CITY2_TILE1"));
         this.levelEntities[0][0][0].push(new Tile(this.game, 256, 736, "CITY2_TILE1"));
+        this.levelEntities[0][0][0].push(new Coin(this.game, 300, 690));
         this.levelEntities[0][0][0].push(new Tile(this.game, 320, 736, "CITY2_TILE1"));
         this.levelEntities[0][0][0].push(new Tile(this.game, 384, 736, "CITY2_TILE1"));
         this.levelEntities[0][0][0].push(new Tile(this.game, 448, 736, "CITY2_TILE1"));
         this.levelEntities[0][0][0].push(new Tile(this.game, 512, 736, "CITY2_TILE1"));
+        this.levelEntities[0][0][0].push(new Coin(this.game, 550, 690));
         this.levelEntities[0][0][0].push(new Tile(this.game, 576, 736, "CITY2_TILE1"));
         this.levelEntities[0][0][0].push(new Tile(this.game, 640, 736, "CITY2_TILE1"));
         this.levelEntities[0][0][0].push(new Tile(this.game, 704, 736, "CITY2_TILE1"));

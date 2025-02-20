@@ -222,7 +222,11 @@ class Guy {
                 // Check if entity is a KillBox
                 if ((entity instanceof KillBox)) {
                     that.die();
-                } 
+                }
+                if(entity instanceof Coin) {
+                    that.game.score += 100;
+                    entity.removeFromWorld = true;
+                }
                 else if (that.velocity.y > 0) { // falling
                     if (((entity instanceof Tile) || (entity instanceof Box)) // landing while not grounded and was above last tick
                         && ((that.lastBB.bottom) <= entity.BB.top) && (that.isGrounded == false)) {
