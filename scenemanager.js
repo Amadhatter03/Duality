@@ -186,9 +186,9 @@ class SceneManager {
         this.levelEntities[0][1][0].push(new KillBox(this.game, 64, 896, 1064, 16)); // under the map
         // Alternating platforms (665 good start) (256 seperator)
         this.levelEntities[0][1][0].push(new Tile(this.game, 448, 633, "CITY2_TILE1"));
-        this.levelEntities[0][1][0].push(new KillBox(this.game, 448 + KILLW, 633 + KILLH, KILLH, KILLH));
+        this.levelEntities[0][1][0].push(new KillBox(this.game, 448 + KILLW, 633 + KILLH, KILLH, 8));
         this.levelEntities[0][1][0].push(new Tile(this.game, 896, 585, "CITY2_TILE1"));
-        this.levelEntities[0][1][0].push(new KillBox(this.game, 896 + KILLW, 585 + KILLH, KILLH, KILLH));
+        this.levelEntities[0][1][0].push(new KillBox(this.game, 896 + KILLW, 585 + KILLH, KILLH, 8));
         // Background + Portal
         this.levelEntities[0][1][0].push(new Portal(this.game, 896, 505));
         this.levelEntities[0][1][0].push(new LeftBoundary(this.game, -10, 0, 10, this.canvasHeight));
@@ -205,11 +205,11 @@ class SceneManager {
 
         // Alternating platforms (665 good start)
         this.levelEntities[0][1][1].push(new Tile(this.game, 192, 665, "CITY2_TILE1"));
-        this.levelEntities[0][1][1].push(new KillBox(this.game, 192 + KILLW, 665 + KILLH, KILLH, KILLH));
+        this.levelEntities[0][1][1].push(new KillBox(this.game, 192 + KILLW, 665 + KILLH, KILLH, 8));
         this.levelEntities[0][1][1].push(new Tile(this.game, 704, 665, "CITY2_TILE1"));
-        this.levelEntities[0][1][1].push(new KillBox(this.game, 704 + KILLW, 665 + KILLH, KILLH, KILLH));
+        this.levelEntities[0][1][1].push(new KillBox(this.game, 704 + KILLW, 665 + KILLH, KILLH, 8));
         this.levelEntities[0][1][1].push(new Tile(this.game, 720, 500, "CITY2_TILE1"));
-        this.levelEntities[0][1][1].push(new KillBox(this.game, 720 + KILLW, 500 + KILLH, KILLH, KILLH));
+        this.levelEntities[0][1][1].push(new KillBox(this.game, 720 + KILLW, 500 + KILLH, KILLH, 8));
         // Entities
         this.levelEntities[0][1][1].push(new Coin(this.game, 745, 469));
         // Background + Portal
