@@ -57,7 +57,7 @@ class SceneManager {
                         this.guy.die();
                         break;
                     }
-                case "KeyR":
+                case "KeyR": // Reset
                     this.levelEntities = [];
 
                     this.reality = 0;
