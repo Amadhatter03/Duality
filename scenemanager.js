@@ -3,7 +3,7 @@ class SceneManager {
         this.game = game;
         this.guy = new Guy(this.game, -32, 608);
         this.level = 0;
-        this.puzzle = 3;
+        this.puzzle = 0;
         this.reality = 0;
         this.lastLevel = 0; // Change this variable everytime a new level has been made (NEEDS TO BE CHANGED TO 2)!!!!!
         this.lastPuzzle = 2; // There are 3 puzzles per level
@@ -53,9 +53,21 @@ class SceneManager {
                         }
 
                         this.loadLevel();
+                        this.guy.numOfCoins = 0;
                         this.guy.die();
                         break;
                     }
+                case "KeyR":
+                    this.levelEntities = [];
+
+                    this.reality = 0;
+                    this.loadAllLevels();
+                    this.loadLevel();
+
+                    this.game.score -= this.guy.numOfCoins * 100;
+                    this.guy.numOfCoins = 0;
+                    this.guy.die();
+                    break;
             }
         });
     }

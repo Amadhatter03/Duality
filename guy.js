@@ -27,6 +27,8 @@ class Guy {
         this.BBGuyHeight = 68
         this.BB = new BoundingBox(this.x + this.offsetBBx, this.y + this.offsetBBy, this.BBGuyWidth, this.BBGuyHeight);
 
+        this.numOfCoins = 0;
+
         this.updateBB();
 
         // Guy's animations
@@ -225,6 +227,7 @@ class Guy {
                 }
                 if(entity instanceof Coin) {
                     that.game.score += 100;
+                    that.numOfCoins += 1;
                     entity.removeFromWorld = true;
                 }
                 else if (that.velocity.y > 0) { // falling
