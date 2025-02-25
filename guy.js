@@ -235,7 +235,7 @@ class Guy {
                         && ((that.lastBB.bottom) <= entity.BB.top) && (that.isGrounded == false)) {
                         that.y = entity.BB.top - tileHeight;
                         that.velocity.y = 0; // Stop vertical velocity
-                        that.velocity.x = 0; // Stop horizontal velocity
+                        //that.velocity.x = 0; // Stop horizontal velocity
                         that.isGrounded = true;
 
                         if (that.state === 3) that.state = 0; // set state to idle
