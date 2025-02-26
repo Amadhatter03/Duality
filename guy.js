@@ -14,7 +14,7 @@ class Guy {
         // x and y pos
         this.x = x;
         this.y = y;
-
+        this.coinAudio = new Audio('Audio/retro-coin.mp3');
         // Are we grounded?
         this.isGrounded = true;
 
@@ -220,12 +220,20 @@ class Guy {
         const tileHeight = 128;
         this.game.entities.forEach(function (entity) {
             if (entity.BB && that.BB.collide(entity.BB)) {
+                if(entity instanceof WindowBox) {
+                    if(entity.direction == 'Left') {
+                        that.x -= 175 * TICK;
+                    } else {
+                        that.x += 175 * TICK;
+                    }
+                }
                 // Y collisions
                 // Check if entity is a KillBox
                 if ((entity instanceof KillBox)) {
                     that.die();
                 }
                 if(entity instanceof Coin) {
+                    that.coinAudio.play();
                     that.game.score += 100;
                     that.numOfCoins += 1;
                     entity.removeFromWorld = true;

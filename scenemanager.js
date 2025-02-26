@@ -104,6 +104,7 @@ class SceneManager {
         this.push00();
         this.push01();
         this.push02();
+        this.push10();
         this.pushWin();
     }
     // Level 0 Puzzle 0
@@ -412,7 +413,35 @@ class SceneManager {
 
     // Level 1 Puzzle 0
     push10(){
-
+        // Floor tiles
+        this.levelEntities[1][0][0].push(new Tile(this.game, 0, 736, "CITY2_TILE1"));
+        this.levelEntities[1][0][0].push(new Tile(this.game, 64, 736, "CITY2_TILE1"));
+        this.levelEntities[1][0][0].push(new Tile(this.game, 128, 736, "CITY2_TILE1"));
+        this.levelEntities[1][0][0].push(new Tile(this.game, 192, 736, "CITY2_TILE1"));
+        this.levelEntities[1][0][0].push(new Tile(this.game, 256, 736, "CITY2_TILE1"));
+        this.levelEntities[1][0][0].push(new Tile(this.game, 320, 736, "CITY2_TILE1"));
+        this.levelEntities[1][0][0].push(new Tile(this.game, 384, 736, "CITY2_TILE1"));
+        this.levelEntities[1][0][0].push(new Tile(this.game, 448, 736, "CITY2_TILE1"));
+        this.levelEntities[1][0][0].push(new Tile(this.game, 512, 736, "CITY2_TILE1"));
+        this.levelEntities[1][0][0].push(new Tile(this.game, 576, 736, "CITY2_TILE1"));
+        this.levelEntities[1][0][0].push(new Tile(this.game, 640, 736, "CITY2_TILE1"));
+        this.levelEntities[1][0][0].push(new Tile(this.game, 704, 736, "CITY2_TILE1"));
+        this.levelEntities[1][0][0].push(new Tile(this.game, 768, 736, "CITY2_TILE1"));
+        this.levelEntities[1][0][0].push(new Tile(this.game, 832, 736, "CITY2_TILE1"));
+        this.levelEntities[1][0][0].push(new Tile(this.game, 896, 736, "CITY2_TILE1"));
+        this.levelEntities[1][0][0].push(new Tile(this.game, 960, 736, "CITY2_TILE1"));
+        // Platform
+        this.levelEntities[1][0][0].push(new Tile(this.game, 64, 600, "CITY2_TILE1"));
+        this.levelEntities[1][0][0].push(new Tile(this.game, 256, 700, "CITY2_TILE1"));
+        this.levelEntities[1][0][0].push(new Tile(this.game, 380, 500, "CITY2_TILE1"));
+        this.levelEntities[1][0][0].push(new Tile(this.game, 960, 600, "CITY2_TILE1"));
+        // WindBox
+        this.levelEntities[1][0][0].push(new WindowBox(this.game, 64, 500, 400, 250, 'Left'));
+        this.levelEntities[1][0][0].push(new WindowBox(this.game, 700, 350, 100, 100, 'Right'));
+        // World + Boundaries
+        this.levelEntities[1][0][0].push(new LeftBoundary(this.game, -10, 0, 10, this.canvasHeight));
+        this.levelEntities[1][0][0].push(new RightBoundary(this.game, 1024, 0, 10, this.canvasHeight));
+        this.levelEntities[1][0][0].push(new World(this.game, 0, 0, 0, 0));
     }
 
     // Level 1 Puzzle 1
