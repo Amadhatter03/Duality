@@ -1,4 +1,4 @@
-class WindowBox {
+class WindBox {
     constructor(game, x, y, width, height, direction) {
         Object.assign(this, {game, x, y, width, height, direction});
         this.BB = new BoundingBox(this.x, this.y, this.width, this.height);

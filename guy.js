@@ -136,15 +136,17 @@ class Guy {
     }
 
     update() {
+        // Jump/Fall Values
+        const FALL = 2000;  // 2000
+        const FALL_A = 280; // 280
+        const JUMP_VEL = -900; // -900
+
         const TICK = this.game.clockTick;
         //const MIN_WALK = 50;
         const MAX_WALK = 300;
         const MAX_FALL = 270;
-        const FALL = 2000;  // 1800
-        const FALL_A = 280; // 421.875
         const ACC_WALK = 300;
         //const DEC_WALK = 1000;
-        const JUMP_VEL = -900; // -500
 
         // update velocity
         if (this.state !== 3) { // not jumping
@@ -220,8 +222,8 @@ class Guy {
         const tileHeight = 128;
         this.game.entities.forEach(function (entity) {
             if (entity.BB && that.BB.collide(entity.BB)) {
-                if(entity instanceof WindowBox) {
-                    if(entity.direction == 'Left') {
+                if(entity instanceof WindBox) {
+                    if(entity.direction == "Left") {
                         that.x -= 175 * TICK;
                     } else {
                         that.x += 175 * TICK;

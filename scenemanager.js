@@ -436,8 +436,8 @@ class SceneManager {
         this.levelEntities[1][0][0].push(new Tile(this.game, 380, 500, "CITY2_TILE1"));
         this.levelEntities[1][0][0].push(new Tile(this.game, 960, 600, "CITY2_TILE1"));
         // WindBox
-        this.levelEntities[1][0][0].push(new WindowBox(this.game, 64, 500, 400, 250, 'Left'));
-        this.levelEntities[1][0][0].push(new WindowBox(this.game, 700, 350, 100, 100, 'Right'));
+        this.levelEntities[1][0][0].push(new WindBox(this.game, 64, 500, 400, 250, "Left"));
+        this.levelEntities[1][0][0].push(new WindBox(this.game, 700, 350, 100, 100, "Right"));
         // World + Boundaries
         this.levelEntities[1][0][0].push(new LeftBoundary(this.game, -10, 0, 10, this.canvasHeight));
         this.levelEntities[1][0][0].push(new RightBoundary(this.game, 1024, 0, 10, this.canvasHeight));
