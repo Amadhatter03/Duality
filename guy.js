@@ -7,6 +7,8 @@ class Guy {
         this.facing = 0; // 0 = right, 1 = left
         this.state = 0; // 0 = idle, 1 = walking, 2 = running, 3 = jumping/falling, 4 = dead
         this.portalReady = false;
+        this.endingReady = false;
+        this.endingNum = 0;
         this.dead = false;
         // Start Pos
         this.startX = x;
@@ -329,6 +331,14 @@ class Guy {
 
                 // Are you in the portal BB (True/False)?
                 that.portalReady = (entity instanceof Portal);
+
+                // Are you in the portal BB at the ending screen (True/False)?
+                if (entity instanceof EndingPortal) {
+                    that.endingReady = true;
+                    that.endingNum = entity.ending;
+                } else {
+                    that.endingReady = false;
+                }
             }
         });
         this.updateBB();

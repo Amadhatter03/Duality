@@ -31,6 +31,10 @@ ASSET_MANAGER.queueDownload("./Sprites/Test Map A.png");
 ASSET_MANAGER.queueDownload("./Sprites/Test Map B.png");
 ASSET_MANAGER.queueDownload("./Sprites/Win A.png");
 ASSET_MANAGER.queueDownload("./Sprites/Win B.png");
+ASSET_MANAGER.queueDownload("./Sprites/Beach Ending.png");
+ASSET_MANAGER.queueDownload("./Sprites/Mountains Ending.png");
+ASSET_MANAGER.queueDownload("./Sprites/Town Ending.png");
+ASSET_MANAGER.queueDownload("./Sprites/Tree Ending.png");
 
 ASSET_MANAGER.queueDownload("./Sprites/SpinningCoin/SpinningCoin/Spinning Coin.png");
 ASSET_MANAGER.downloadAll(() => {
