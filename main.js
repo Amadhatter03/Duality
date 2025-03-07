@@ -27,6 +27,8 @@ ASSET_MANAGER.queueDownload("./Sprites/waterfall/waterfall_green_single-Sheet.pn
 ASSET_MANAGER.queueDownload("./Sprites/waterfall/waterfall_blue_gate-Sheet.png");
 ASSET_MANAGER.queueDownload("./Sprites/waterfall/waterfall_green_gate-Sheet.png");
 // Background Map Sprites
+ASSET_MANAGER.queueDownload("./Sprites/Underground A.png");
+ASSET_MANAGER.queueDownload("./Sprites/Underground B.png");
 ASSET_MANAGER.queueDownload("./Sprites/Test Map A.png");
 ASSET_MANAGER.queueDownload("./Sprites/Test Map B.png");
 ASSET_MANAGER.queueDownload("./Sprites/Win A.png");

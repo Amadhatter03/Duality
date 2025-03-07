@@ -24,10 +24,10 @@ class World {
 
         // Level 1
         this.levels[1][0] = new Animator(
-            ASSET_MANAGER.getAsset("./Sprites/Test Map A.png"),
+            ASSET_MANAGER.getAsset("./Sprites/Underground A.png"),
             0, 0, 512, 384, 1, 1);
         this.levels[1][1] = new Animator(
-            ASSET_MANAGER.getAsset("./Sprites/Test Map B.png"),
+            ASSET_MANAGER.getAsset("./Sprites/Underground B.png"),
             0, 0, 512, 384, 1, 1);
         
         // Level 2
