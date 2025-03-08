@@ -2,7 +2,7 @@ class SceneManager {
     constructor(game) {
         this.game = game;
         this.guy = new Guy(this.game, -32, 608);
-        this.level = 1;
+        this.level = 2;
         this.puzzle = 0;
         this.reality = 0;
         this.lastLevel = 1; // Change this variable everytime a new level has been made (NEEDS TO BE CHANGED TO 2)!!!!!
@@ -124,6 +124,7 @@ class SceneManager {
         this.push01();
         this.push02();
         this.push10();
+        this.push20();
         this.pushWin();
         this.pushVacations();
     }
@@ -615,7 +616,15 @@ class SceneManager {
 
     // Level 2 Puzzle 0
     push20(){
+        // Reality #1
+        this.levelEntities[2][0][0].push(new Tile(this.game, 0, 736, "CITY2_TILE1"));
+        this.levelEntities[2][0][0].push(new WindBox(this.game, 0, 600,38 , 64, "Right"));
+        this.levelEntities[2][0][0].push(new World(this.game, 0, 0, 2, 0));
 
+        // Reality #2
+        this.levelEntities[2][0][1].push(new Tile(this.game, 0, 736, "CITY2_TILE1"));
+        this.levelEntities[2][0][1].push(new WindBox(this.game, 0, 600,38 , 64, "Right"));
+        this.levelEntities[2][0][1].push(new World(this.game, 0, 0, 2, 1));
     }
 
     // Level 2 Puzzle 1

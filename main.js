@@ -38,6 +38,9 @@ ASSET_MANAGER.queueDownload("./Sprites/Mountains Ending.png");
 ASSET_MANAGER.queueDownload("./Sprites/Town Ending.png");
 ASSET_MANAGER.queueDownload("./Sprites/Tree Ending.png");
 
+ASSET_MANAGER.queueDownload("./Sprites/SkyBackground.png");
+ASSET_MANAGER.queueDownload("./Sprites/SkyBackgroundNight.png");
+ASSET_MANAGER.queueDownload("./Sprites/WindSprite.png")
 ASSET_MANAGER.queueDownload("./Sprites/SpinningCoin/SpinningCoin/Spinning Coin.png");
 ASSET_MANAGER.downloadAll(() => {
 	const canvas = document.getElementById("gameWorld");

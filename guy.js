@@ -225,11 +225,16 @@ class Guy {
         this.game.entities.forEach(function (entity) {
             if (entity.BB && that.BB.collide(entity.BB)) {
                 if(entity instanceof WindBox) {
-                    if(entity.direction == "Left") {
-                        that.x -= 175 * TICK;
-                    } else {
-                        that.x += 175 * TICK;
-                    }
+                    that.velocity.y = Math.max(that.velocity.y - 300 * TICK, -500); // Push up with limit
+                    that.fallAcc = 200; // Reduce gravity effect for smooth lift
+
+                    // if (entity.direction === "Left") {
+                    //     that.velocity.x =  that.velocity.x -= 800 * TICK; // Apply strong leftward push
+                    // }
+                    // else if (entity.direction === "Right") {
+                    //     that.velocity.x =  that.velocity.x += 800 * TICK; // Apply strong rightward push
+                    // }
+
                 }
                 // Y collisions
                 // Check if entity is a KillBox
