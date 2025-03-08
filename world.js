@@ -32,10 +32,10 @@ class World {
         
         // Level 2
         this.levels[2][0] = new Animator(
-            ASSET_MANAGER.getAsset("./Sprites/Test Map A.png"),
+            ASSET_MANAGER.getAsset("./Sprites/SkyBackground.png"),
             0, 0, 512, 384, 1, 1);
         this.levels[2][1] = new Animator(
-            ASSET_MANAGER.getAsset("./Sprites/Test Map B.png"),
+            ASSET_MANAGER.getAsset("./Sprites/SkyBackgroundNight.png"),
             0, 0, 512, 384, 1, 1);
 
         // Winning level
