@@ -617,13 +617,25 @@ class SceneManager {
     // Level 2 Puzzle 0
     push20(){
         // Reality #1
-        this.levelEntities[2][0][0].push(new Tile(this.game, 0, 736, "CITY2_TILE1"));
-        this.levelEntities[2][0][0].push(new WindBox(this.game, 0, 600,38 , 64, "Right"));
+        this.levelEntities[2][0][0].push(new Tile(this.game, 0, 758, "CITY2_TILE1", true));
+        this.levelEntities[2][0][0].push(new Tile(this.game, 64, 758, "CITY2_TILE1",true));
+        this.levelEntities[2][0][0].push(new Tile(this.game, 128, 758, "CITY2_TILE1", true));
+        this.levelEntities[2][0][0].push(new Tile(this.game, 192, 758, "CITY2_TILE1", true));
+        this.levelEntities[2][0][0].push(new Tile(this.game, 256, 758, "CITY2_TILE1", true));
+        this.levelEntities[2][0][0].push(new Tile(this.game, 320, 758, "CITY2_TILE1", true));
+        this.levelEntities[2][0][0].push(new WindBox(this.game, 640, 600,38 , 64, "Right"));
+        this.levelEntities[2][0][0].push(new WindBox(this.game, 748, 300,38 , 64, "Right"));
         this.levelEntities[2][0][0].push(new World(this.game, 0, 0, 2, 0));
 
         // Reality #2
-        this.levelEntities[2][0][1].push(new Tile(this.game, 0, 736, "CITY2_TILE1"));
-        this.levelEntities[2][0][1].push(new WindBox(this.game, 0, 600,38 , 64, "Right"));
+        this.levelEntities[2][0][1].push(new Tile(this.game, 0, 758, "CITY2_TILE1", true));
+        this.levelEntities[2][0][1].push(new Tile(this.game, 64, 758, "CITY2_TILE1",true));
+        this.levelEntities[2][0][1].push(new Tile(this.game, 128, 758, "CITY2_TILE1", true));
+        this.levelEntities[2][0][1].push(new Tile(this.game, 192, 758, "CITY2_TILE1", true));
+        this.levelEntities[2][0][1].push(new Tile(this.game, 256, 758, "CITY2_TILE1", true));
+        this.levelEntities[2][0][1].push(new Tile(this.game, 320, 758, "CITY2_TILE1", true));
+        this.levelEntities[2][0][1].push(new WindBox(this.game, 640, 600,38 , 64, "Right"));
+        this.levelEntities[2][0][1].push(new WindBox(this.game, 192, 400,38 , 64, "Right"));
         this.levelEntities[2][0][1].push(new World(this.game, 0, 0, 2, 1));
     }
 

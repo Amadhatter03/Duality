@@ -1,7 +1,7 @@
 class WindBox {
     constructor(game, x, y, width, height, direction) {
         Object.assign(this, {game, x, y, width, height, direction});
-        this.BB = new BoundingBox(this.x, this.y, this.width * 2, this.height * 2);
+        this.BB = new BoundingBox(this.x, this.y + this.height, this.width * 2, this.height );
         this.sprite = new Animator(ASSET_MANAGER.getAsset("./Sprites/WindSprite.png"), 0,0,28.5,64,7, 0.1);
     }
 

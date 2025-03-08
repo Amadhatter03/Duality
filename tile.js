@@ -1,10 +1,9 @@
 class Tile {
-    constructor(game, x, y, spriteName) {
-        Object.assign(this, {game, x, y, spriteName});
+    constructor(game, x, y, spriteName, invisible = false) {
+        Object.assign(this, {game, x, y, spriteName, invisible});
 
         // Bounding Box
         this.BB = new BoundingBox(this.x, this.y, 62, 32);
-
         // Due to multiple types of tiles, you need to specify more to get sprite
         switch(spriteName) {
             case "CITY1_TILE1":
@@ -22,7 +21,10 @@ class Tile {
     update() {}
 
     draw(ctx) {
-        this.sprite.drawFrame(this.game.clockTick, ctx, this.x, this.y, 2);
+        if (!this.invisible) {
+            this.sprite.drawFrame(this.game.clockTick, ctx, this.x, this.y, 2);
+        }
+
         if(this.game.debug === true) {
             ctx.strokeStyle = "green"; // Box color
             ctx.lineWidth = 2; // Line thickness
