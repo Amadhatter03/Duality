@@ -10,6 +10,7 @@ class Guy {
         this.endingReady = false;
         this.endingNum = 0;
         this.dead = false;
+        this.inWind = false; // Track if the player is inside a WindBox
         // Start Pos
         this.startX = x;
         this.startY = y;
@@ -225,7 +226,8 @@ class Guy {
         this.game.entities.forEach(function (entity) {
             if (entity.BB && that.BB.collide(entity.BB)) {
                 if(entity instanceof WindBox) {
-                    that.velocity.y = Math.max(that.velocity.y - 300 * TICK, -500); // Push up with limit
+                    that.inWind = true; // Mark that we're in the WindBox
+                    that.velocity.y = Math.max(that.velocity.y -1000 * TICK, -700); // Push up with limit
                     that.fallAcc = 200; // Reduce gravity effect for smooth lift
 
                     // if (entity.direction === "Left") {
@@ -345,7 +347,19 @@ class Guy {
                     that.endingReady = false;
                 }
             }
+
+
         });
+
+         //If we were in the wind but are now outside, reset gravity
+         if (!this.inWind) {
+             if(that.state !== 3) {
+                 this.fallAcc = 1000;
+             }
+         }
+
+// Reset WindBox state for the next frame
+        this.inWind = false;
         this.updateBB();
     }
 
