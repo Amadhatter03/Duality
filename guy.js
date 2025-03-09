@@ -1,5 +1,3 @@
-// Not implemented so far: updateBB, updateLastBB, die, update
-
 class Guy {
     constructor(game, x, y) {
         Object.assign(this, { game, x, y });
@@ -17,9 +15,12 @@ class Guy {
         // x and y pos
         this.x = x;
         this.y = y;
-        this.coinAudio = new Audio('Audio/retro-coin.mp3');
         // Are we grounded?
         this.isGrounded = true;
+        // Are we walking?
+        this.isWalking = false;
+
+        this.lastStepTime = 0;
 
         this.velocity = { x: 0, y: 0 };
         this.fallAcc = 1000;
@@ -100,26 +101,21 @@ class Guy {
 
     updateBB() {
         this.BB = new BoundingBox(this.x + this.offsetBBx, this.y + this.offsetBBy, this.BBGuyWidth, this.BBGuyHeight);
-        // Mario code for BB updating
-        // if (this.size === 0 || this.size === 3) {
-        //     this.BB = new BoundingBox(this.x, this.y, PARAMS.BLOCKWIDTH, PARAMS.BLOCKWIDTH);
-        // }
-        // else {
-        //     if (this.game.down) // big mario is crouching
-        //         this.BB = new BoundingBox(this.x, this.y + PARAMS.BLOCKWIDTH, PARAMS.BLOCKWIDTH, PARAMS.BLOCKWIDTH);
-        //     else 
-        //         this.BB = new BoundingBox(this.x, this.y, PARAMS.BLOCKWIDTH, PARAMS.BLOCKWIDTH * 2);
-        // }
     };
 
     updateLastBB() {
         this.lastBB = this.BB;
     };
 
-    die() {
-        console.log(this.x, this.y);
-        this.x = this.startX;
-        this.y = this.startY;
+    die(sound) {
+        if(sound) {
+            this.x = this.startX;
+            this.y = this.startY;
+            ASSET_MANAGER.playAsset("./Audio/hurt.wav");
+        } else {
+                this.x = this.startX;
+                this.y = this.startY;
+        }
     };
 
     decelerate() {
@@ -135,6 +131,18 @@ class Guy {
         // If the velocity is below a certain threshold, set it to zero to avoid small drifting
         if (Math.abs(this.velocity.x) < MIN_WALK) {
             this.velocity.x = 0;
+        }
+    }
+
+    playWalkAudio() {
+        const stepInterval = 470; // Play sound every 470dms 
+        const walkSound = new Audio("./Audio/step.wav");
+        const now = Date.now();
+
+        if (this.isWalking && now - this.lastStepTime > stepInterval) {
+            walkSound.currentTime = 0; // Restart sound
+            walkSound.play();
+            this.lastStepTime = now;
         }
     }
 
@@ -156,6 +164,7 @@ class Guy {
             // ground physics
             if (this.game.active != true) {
                 this.state = 0;
+                this.isWalking = false;
                 //this.x -= MIN_WALK + this.game.clockTick;
             }
             if (this.game.left == true) {
@@ -163,23 +172,29 @@ class Guy {
                  if (this.velocity.x > 0) {
                     this.decelerate(); // Decelerate first before moving in the other direction
                 }
+                this.isWalking = true;
                 this.facing = 1;
                 this.state = 1;
                 this.velocity.x -= ACC_WALK * TICK;
+                this.playWalkAudio();
             } else if (this.game.right == true) {
                 // If moving right, check if we're moving left first and decelerate
                 if (this.velocity.x < 0) {
                     this.decelerate(); // Decelerate first before moving in the other direction
                 }
+                this.isWalking = true;
                 this.facing = 0;
                 this.state = 1;
                 this.velocity.x += ACC_WALK * TICK;
+                this.playWalkAudio();
             } else {
                 // Decelerate 
                 this.decelerate();
+                this.playWalkAudio();
             }
 
             if (this.game.jump && this.isGrounded == true && this.velocity.y <= 0) { // jump
+                this.isWalking = false;
                 this.velocity.y = JUMP_VEL;
                 this.fallAcc = FALL;
                 this.state = 3;
@@ -241,10 +256,10 @@ class Guy {
                 // Y collisions
                 // Check if entity is a KillBox
                 if ((entity instanceof KillBox)) {
-                    that.die();
+                    that.die(true);
                 }
                 if(entity instanceof Coin) {
-                    that.coinAudio.play();
+                    ASSET_MANAGER.playAsset("./Audio/retro-coin.mp3");
                     that.game.score += 100;
                     that.numOfCoins += 1;
                     entity.removeFromWorld = true;
@@ -286,10 +301,14 @@ class Guy {
                 // Check if entity is a KillBox
                 if ((entity instanceof KillBox)) {
                     console.log("collided");
-                    that.die();
+                    that.die("died");
+                }
+                else if(entity instanceof MusicStarter && !entity.started) {
+                    ASSET_MANAGER.playAsset("./Audio/Cyrus - Freedom.mp3");
+                    entity.started = true;
                 }
                 else if ((entity instanceof Waterfall) && (entity.waterType == "green")) {
-                    that.die();
+                    that.die(true);
                 }
                 else if(that.velocity.x < 0) { // moving left
                     if ((entity instanceof Tile) // hit left wall
@@ -358,7 +377,7 @@ class Guy {
              }
          }
 
-// Reset WindBox state for the next frame
+        // Reset WindBox state for the next frame
         this.inWind = false;
         this.updateBB();
     }
