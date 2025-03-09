@@ -5,7 +5,8 @@ class Coin {
         // Bounding Box
         this.BB = new BoundingBox(this.x, this.y, 16, 16);
 
-        this.sprite = new Animator(ASSET_MANAGER.getAsset("./Sprites/SpinningCoin/SpinningCoin/Spinning Coin.png"), 0,0,16.0008,16,8, 0.1);
+        this.sprite = new Animator(ASSET_MANAGER.getAsset("./Sprites/SpinningCoin/SpinningCoin/Spinning Coin.png"), 
+                        0, 0, 16, 16, 8, 0.1);
     }
 
     update() {}
