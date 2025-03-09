@@ -5,7 +5,7 @@ class SceneManager {
         this.level = 0;
         this.puzzle = 0;
         this.reality = 0;
-        this.lastLevel = 1; // Change this variable everytime a new level has been made (NEEDS TO BE CHANGED TO 2)!!!!!
+        this.lastLevel = 0; // Change this variable everytime a new level has been made (NEEDS TO BE CHANGED TO 2)!!!!!
         this.lastPuzzle = 3; // There are 3 puzzles per level
         this.canvasHeight = this.game.ctx.canvas.height;
 
@@ -623,11 +623,8 @@ class SceneManager {
         this.levelEntities[2][0][0].push(new Tile(this.game, 192, 758, "CITY2_TILE1", true));
         this.levelEntities[2][0][0].push(new Tile(this.game, 256, 758, "CITY2_TILE1", true));
         this.levelEntities[2][0][0].push(new Tile(this.game, 320, 758, "CITY2_TILE1", true));
-
         this.levelEntities[2][0][0].push(new WindBox(this.game, 640, 600,38 , 64, "Right"));
         this.levelEntities[2][0][0].push(new WindBox(this.game, 748, 300,38 , 64, "Right"));
-
-        this.levelEntities[2][0][0].push(new Portal(this.game, 730, 150));
         this.levelEntities[2][0][0].push(new World(this.game, 0, 0, 2, 0));
 
         // Reality #2
