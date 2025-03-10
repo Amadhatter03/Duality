@@ -37,6 +37,12 @@ class World {
         this.levels[2][1] = new Animator(
             ASSET_MANAGER.getAsset("./Sprites/SkyBackgroundNight.png"),
             0, 0, 512, 384, 1, 1);
+        this.levels[2][2] = new Animator(
+            ASSET_MANAGER.getAsset("./Sprites/SkyBackground2.png"),
+            0, 0, 512, 384, 1, 1);
+        this.levels[2][3] = new Animator(
+            ASSET_MANAGER.getAsset("./Sprites/SkyBackground2alt.png"),
+            0, 0, 512, 384, 1, 1);
 
         // Winning level
         this.levels[3][0] = new Animator(
