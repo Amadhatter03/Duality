@@ -3,7 +3,7 @@ class SceneManager {
         this.game = game;
         this.guy = new Guy(this.game, -32, 608);
         this.level = 2;
-        this.puzzle = 0;
+        this.puzzle = 1;
         this.reality = 0;
         this.lastLevel = 0; // Change this variable everytime a new level has been made (NEEDS TO BE CHANGED TO 2)!!!!!
         this.lastPuzzle = 3; // There are 3 puzzles per level
@@ -764,8 +764,8 @@ class SceneManager {
 
     // Level 2 Puzzle 1
     push21(){
-        this.levelEntities[2][1][0].push(new World(this.game, 0, 0, 2, 3));
-        this.levelEntities[2][1][1].push(new World(this.game, 0, 0, 2, 4));
+        this.levelEntities[2][1][0].push(new World(this.game, 0, 0, 2, 2));
+        this.levelEntities[2][1][1].push(new World(this.game, 0, 0, 2, 3));
     }
 
     // Level 2 Puzzle 2
