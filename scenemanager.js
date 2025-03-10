@@ -80,7 +80,6 @@ class SceneManager {
                     this.reality = 0;
                     this.loadAllLevels();
                     this.loadLevel();
-
                     this.game.score -= this.guy.numOfCoins * 100;
                     this.guy.numOfCoins = 0;
                     this.guy.die(false);
@@ -764,7 +763,46 @@ class SceneManager {
 
     // Level 2 Puzzle 1
     push21(){
+        // Reality 1
+        // Invisible tiles
+        if(this.level == 2) {
+            this.guy.startX = 0;
+            this.guy.startY = -20;
+        }
+        this.levelEntities[2][1][0].push(new Tile(this.game, 0, 114, "CITY2_TILE1", true));
+        this.levelEntities[2][1][0].push(new Tile(this.game, 64, 114, "CITY2_TILE1", true));
+        this.levelEntities[2][1][0].push(new Tile(this.game, 128, 114, "CITY2_TILE1", true));
+
+        this.levelEntities[2][1][0].push(new Tile(this.game, 475, 576, "CITY2_TILE1",true));
+        this.levelEntities[2][1][0].push(new Tile(this.game, 539, 576, "CITY2_TILE1",true));
+        this.levelEntities[2][1][0].push(new Tile(this.game, 603, 576, "CITY2_TILE1",true));
+        this.levelEntities[2][1][0].push(new Tile(this.game, 618, 576, "CITY2_TILE1",true));
+        //Entities
+        this.levelEntities[2][1][0].push(new Grate(this.game, 135, 0, "green"));
+        this.levelEntities[2][1][0].push(new Waterfall(this.game, 135, 8, "green"));
+        this.levelEntities[2][1][0].push(new Waterfall(this.game, 135, 32, "green"));
+        this.levelEntities[2][1][0].push(new Waterfall(this.game, 135, 56, "green"));
+        this.levelEntities[2][1][0].push(new Waterfall(this.game, 135, 64, "green"));
+
+        this.levelEntities[2][1][0].push(new Grate(this.game, 475, 430, "green"));
+        this.levelEntities[2][1][0].push(new Waterfall(this.game, 475, 438, "green"));
+        this.levelEntities[2][1][0].push(new Waterfall(this.game, 475, 462, "green"));
+        this.levelEntities[2][1][0].push(new Waterfall(this.game, 475, 486, "green"));
+        this.levelEntities[2][1][0].push(new Waterfall(this.game, 475, 510, "green"));
+        this.levelEntities[2][1][0].push(new Waterfall(this.game, 475, 534, "green"));
+        this.levelEntities[2][1][0].push(new WindBox(this.game, 620, 440,38 , 64, "Right"));
+        this.levelEntities[2][1][0].push(new WindBox(this.game, 475, 150, 38, 64))
+
+        this.levelEntities[2][1][0].push(new Tile(this.game, 684, 75,"CITY2_TILE1", true))
+        this.levelEntities[2][1][0].push(new Tile(this.game, 748, 75,"CITY2_TILE1", true))
+        this.levelEntities[2][1][0].push(new Tile(this.game, 802, 75,"CITY2_TILE1", true))
+
         this.levelEntities[2][1][0].push(new World(this.game, 0, 0, 2, 2));
+        // Reality 2
+
+        // Entities
+        this.levelEntities[2][1][1].push(new WindBox(this.game, 220, 480,38 , 64, "Right"));
+
         this.levelEntities[2][1][1].push(new World(this.game, 0, 0, 2, 3));
     }
 
