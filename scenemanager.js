@@ -628,6 +628,7 @@ class SceneManager {
         this.levelEntities[1][1][0].push(new Tile(this.game, 960, 736, "CITY1_TILE1"));
         // Entities
         this.levelEntities[1][1][0].push(new Portal(this.game, 905, 650));
+        this.levelEntities[1][1][0].push(new BlindSign(this.game, 260, 680));
         // World + Boundaries
         this.levelEntities[1][1][0].push(new LeftBoundary(this.game, -10, 0, 10, this.canvasHeight));
         this.levelEntities[1][1][0].push(new RightBoundary(this.game, 1024, 0, 10, this.canvasHeight));

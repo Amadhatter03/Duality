@@ -22,7 +22,10 @@ ASSET_MANAGER.queueDownload("./Sprites/Portal.png");
 ASSET_MANAGER.queueDownload("./Sprites/SpinningCoin/SpinningCoin/Spinning Coin.png");
 
 // Wind Sprite
-ASSET_MANAGER.queueDownload("./Sprites/WindSprite.png")
+ASSET_MANAGER.queueDownload("./Sprites/WindSprite.png");
+
+// Blind Sign Sprite
+ASSET_MANAGER.queueDownload("./Sprites/Free Industrial Zone Tileset/3 Objects/Pointer1.png");
 
 // Tree sprite
 ASSET_MANAGER.queueDownload("./Sprites/Trees/TREE 4_ SANDY GREEN.png");
