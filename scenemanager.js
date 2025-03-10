@@ -2,8 +2,8 @@ class SceneManager {
     constructor(game) {
         this.game = game;
         this.guy = new Guy(this.game, -32, 608);
-        this.level = 1;
-        this.puzzle = 1;
+        this.level = 2;
+        this.puzzle = 0;
         this.reality = 0;
         this.lastLevel = 0; // Change this variable everytime a new level has been made (NEEDS TO BE CHANGED TO 2)!!!!!
         this.lastPuzzle = 3; // There are 3 puzzles per level
@@ -731,11 +731,14 @@ class SceneManager {
         this.levelEntities[2][0][0].push(new Tile(this.game, 192, 758, "CITY1_TILE1", true));
         this.levelEntities[2][0][0].push(new Tile(this.game, 256, 758, "CITY1_TILE1", true));
         this.levelEntities[2][0][0].push(new Tile(this.game, 320, 758, "CITY1_TILE1", true));
+        this.levelEntities[2][0][0].push(new Tile(this.game, 808, 315, "CITY1_TILE1", true));
+        this.levelEntities[2][0][0].push(new Tile(this.game, 892, 315, "CITY1_TILE1", true));
+        this.levelEntities[2][0][0].push(new Tile(this.game, 956, 315, "CITY1_TILE1", true));
 
         this.levelEntities[2][0][0].push(new WindBox(this.game, 640, 600,38 , 64, "Right"));
-        this.levelEntities[2][0][0].push(new WindBox(this.game, 748, 300,38 , 64, "Right"));
+        this.levelEntities[2][0][0].push(new WindBox(this.game, 748, 280,38 , 64, "Right"));
 
-        this.levelEntities[2][0][0].push(new Portal(this.game, 730, 150));
+        this.levelEntities[2][0][0].push(new Portal(this.game, 935, 230));
         this.levelEntities[2][0][0].push(new World(this.game, 0, 0, 2, 0));
 
         // Reality 1
@@ -747,11 +750,14 @@ class SceneManager {
         this.levelEntities[2][0][1].push(new Tile(this.game, 192, 758, "CITY2_TILE1", true));
         this.levelEntities[2][0][1].push(new Tile(this.game, 256, 758, "CITY2_TILE1", true));
         this.levelEntities[2][0][1].push(new Tile(this.game, 320, 758, "CITY2_TILE1", true));
+        this.levelEntities[2][0][1].push(new Tile(this.game, 808, 315, "CITY1_TILE1", true));
+        this.levelEntities[2][0][1].push(new Tile(this.game, 892, 315, "CITY1_TILE1", true));
+        this.levelEntities[2][0][1].push(new Tile(this.game, 956, 315, "CITY1_TILE1", true));
 
         this.levelEntities[2][0][1].push(new WindBox(this.game, 640, 600,38 , 64, "Right"));
         this.levelEntities[2][0][1].push(new WindBox(this.game, 192, 400,38 , 64, "Right"));
 
-        this.levelEntities[2][0][1].push(new Portal(this.game, 730, 150));
+        this.levelEntities[2][0][0].push(new Portal(this.game, 935, 230));
         this.levelEntities[2][0][1].push(new World(this.game, 0, 0, 2, 1));
     }
 
