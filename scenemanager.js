@@ -2,8 +2,8 @@ class SceneManager {
     constructor(game) {
         this.game = game;
         this.guy = new Guy(this.game, -32, 608);
-        this.level = 1;
-        this.puzzle = 1;
+        this.level = 0;
+        this.puzzle = 0;
         this.reality = 0;
         this.lastLevel = 0; // Change this variable everytime a new level has been made (NEEDS TO BE CHANGED TO 2)!!!!!
         this.lastPuzzle = 3; // There are 3 puzzles per level
@@ -1020,7 +1020,7 @@ class SceneManager {
         this.levelEntities[0][4][0].push(new Tile(this.game, 960, 736, "CITY2_TILE1"));
 
         // World + Boundaries (Beach)
-        this.levelEntities[0][4][0].push(new Portal(this.game, 490, 650));
+        this.levelEntities[0][4][0].push(new Portal(this.game, 905, 650));
         this.levelEntities[0][4][0].push(new LeftBoundary(this.game, -10, 0, 10, this.canvasHeight));
         this.levelEntities[0][4][0].push(new RightBoundary(this.game, 1024, 0, 10, this.canvasHeight));
         this.levelEntities[0][4][0].push(new World(this.game, 0, 0, 4, 0));
@@ -1044,7 +1044,7 @@ class SceneManager {
         this.levelEntities[0][4][1].push(new Tile(this.game, 960, 736, "CITY2_TILE1"));
 
         // World + Boundaries (Mountains)
-        this.levelEntities[0][4][1].push(new Portal(this.game, 490, 650));
+        this.levelEntities[0][4][1].push(new Portal(this.game, 905, 650));
         this.levelEntities[0][4][1].push(new LeftBoundary(this.game, -10, 0, 10, this.canvasHeight));
         this.levelEntities[0][4][1].push(new RightBoundary(this.game, 1024, 0, 10, this.canvasHeight));
         this.levelEntities[0][4][1].push(new World(this.game, 0, 0, 4, 1));
@@ -1068,7 +1068,7 @@ class SceneManager {
         this.levelEntities[0][4][2].push(new Tile(this.game, 960, 736, "CITY2_TILE1"));
 
         // World + Boundaries (Town)
-        this.levelEntities[0][4][2].push(new Portal(this.game, 490, 650));
+        this.levelEntities[0][4][2].push(new Portal(this.game, 905, 650));
         this.levelEntities[0][4][2].push(new LeftBoundary(this.game, -10, 0, 10, this.canvasHeight));
         this.levelEntities[0][4][2].push(new RightBoundary(this.game, 1024, 0, 10, this.canvasHeight));
         this.levelEntities[0][4][2].push(new World(this.game, 0, 0, 4, 2));
@@ -1092,7 +1092,7 @@ class SceneManager {
         this.levelEntities[0][4][3].push(new Tile(this.game, 960, 736, "CITY2_TILE1"));
 
         // World + Boundaries (Tree)
-        this.levelEntities[0][4][3].push(new Portal(this.game, 490, 650));
+        this.levelEntities[0][4][3].push(new Portal(this.game, 905, 650));
         this.levelEntities[0][4][3].push(new LeftBoundary(this.game, -10, 0, 10, this.canvasHeight));
         this.levelEntities[0][4][3].push(new RightBoundary(this.game, 1024, 0, 10, this.canvasHeight));
         this.levelEntities[0][4][3].push(new World(this.game, 0, 0, 4, 3));
