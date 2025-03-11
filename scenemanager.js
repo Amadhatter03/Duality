@@ -2,12 +2,13 @@ class SceneManager {
     constructor(game) {
         this.game = game;
         this.guy = new Guy(this.game, -32, 608);
-        this.level = 2;
+        this.level = 1;
         this.puzzle = 1;
         this.reality = 0;
         this.lastLevel = 0; // Change this variable everytime a new level has been made (NEEDS TO BE CHANGED TO 2)!!!!!
         this.lastPuzzle = 3; // There are 3 puzzles per level
         this.canvasHeight = this.game.ctx.canvas.height;
+        this.flag = false;
 
         this.levelEntities = [];
         this.loadAllLevels();
@@ -69,12 +70,15 @@ class SceneManager {
                             this.game.score += 500;
                         }
 
+                        this.guy.blind = false;
                         this.loadLevel();
                         this.guy.numOfCoins = 0;
                         this.guy.die(false);
                     }
                     break;
                 case "KeyR": // Reset
+                    this.guy.blind = false;
+                    this.flag = false;
                     this.levelEntities = [];
 
                     this.reality = 0;
@@ -83,6 +87,12 @@ class SceneManager {
                     this.game.score -= this.guy.numOfCoins * 100;
                     this.guy.numOfCoins = 0;
                     this.guy.die(false);
+                    break;
+                case "KeyD":
+                    if (this.flag == false && this.guy.blind == true) {
+                        this.loadLevel();
+                        this.flag = true;
+                    }
                     break;
             }
         });
@@ -93,7 +103,11 @@ class SceneManager {
 
         for (let entity of this.levelEntities[this.level][this.puzzle][this.reality]) {
             console.log(this.reality);
-            this.game.addEntity(entity);
+            if (entity instanceof BlindBox && this.guy.blind == false) {
+                continue;
+            } else {
+                this.game.addEntity(entity);
+            }
             if (entity instanceof World) {
                 console.log(entity.reality);
             }
@@ -609,6 +623,8 @@ class SceneManager {
     push11(){
         // Reality 0
         this.levelEntities[1][1][0].push(new Widget(this.game, 2, 2));
+        this.levelEntities[1][1][0].push(new Portal(this.game, 842, 116));
+        this.levelEntities[1][1][0].push(new BlindBox(this.game, 0, 0, 1024, 768));
         // Floor tiles
         this.levelEntities[1][1][0].push(new Tile(this.game, 0, 736, "CITY1_TILE1"));
         this.levelEntities[1][1][0].push(new Tile(this.game, 64, 736, "CITY1_TILE1"));
@@ -627,8 +643,30 @@ class SceneManager {
         this.levelEntities[1][1][0].push(new Tile(this.game, 896, 736, "CITY1_TILE1"));
         this.levelEntities[1][1][0].push(new Tile(this.game, 960, 736, "CITY1_TILE1"));
         // Entities
-        this.levelEntities[1][1][0].push(new Portal(this.game, 905, 650));
+        const KILLW = 24;
+        const KILLH = 12;
         this.levelEntities[1][1][0].push(new BlindSign(this.game, 260, 680));
+        this.levelEntities[1][1][0].push(new KillBox(this.game, KILLW, 600 + KILLH, KILLH, KILLH));
+        this.levelEntities[1][1][0].push(new Tile(this.game, 0, 600, "CITY1_TILE1"));
+        this.levelEntities[1][1][0].push(new KillBox(this.game, 64 + KILLW, 600 + KILLH, KILLH, KILLH));
+        this.levelEntities[1][1][0].push(new Tile(this.game, 64, 600, "CITY1_TILE1"));
+        this.levelEntities[1][1][0].push(new KillBox(this.game, 128 + KILLW, 600 + KILLH, KILLH, KILLH));
+        this.levelEntities[1][1][0].push(new Tile(this.game, 128, 600, "CITY1_TILE1"));
+        this.levelEntities[1][1][0].push(new KillBox(this.game, 192 + KILLW, 600 + KILLH, KILLH, KILLH));
+        this.levelEntities[1][1][0].push(new Tile(this.game, 192, 600, "CITY1_TILE1"));
+        this.levelEntities[1][1][0].push(new KillBox(this.game, 256 + KILLW, 600 + KILLH, KILLH, KILLH));
+        this.levelEntities[1][1][0].push(new Tile(this.game, 256, 600, "CITY1_TILE1"));
+        this.levelEntities[1][1][0].push(new KillBox(this.game, 320 + KILLW, 600 + KILLH, KILLH, KILLH));
+        this.levelEntities[1][1][0].push(new Tile(this.game, 320, 600, "CITY1_TILE1"));
+        this.levelEntities[1][1][0].push(new KillBox(this.game, 850 + KILLW, 670 + KILLH, KILLH, KILLH));
+        this.levelEntities[1][1][0].push(new Tile(this.game, 850, 670, "CITY1_TILE1"));
+        this.levelEntities[1][1][0].push(new KillBox(this.game, KILLW, 480 + KILLH, KILLH, KILLH));
+        this.levelEntities[1][1][0].push(new Tile(this.game, 0, 480, "CITY1_TILE1"));
+        this.levelEntities[1][1][0].push(new KillBox(this.game, 620 + KILLW, 320 + KILLH, KILLH, KILLH));
+        this.levelEntities[1][1][0].push(new Tile(this.game, 620, 320, "CITY1_TILE1"));
+        this.levelEntities[1][1][0].push(new KillBox(this.game, 850 + KILLW, 200 + KILLH, KILLH, KILLH));
+        this.levelEntities[1][1][0].push(new Tile(this.game, 850, 200, "CITY1_TILE1"));
+        this.levelEntities[1][1][0].push(new Coin(this.game, 28, 570));
         // World + Boundaries
         this.levelEntities[1][1][0].push(new LeftBoundary(this.game, -10, 0, 10, this.canvasHeight));
         this.levelEntities[1][1][0].push(new RightBoundary(this.game, 1024, 0, 10, this.canvasHeight));
@@ -637,6 +675,7 @@ class SceneManager {
 
         // Reality 1
         this.levelEntities[1][1][1].push(new Widget(this.game, 2, 2));
+        this.levelEntities[1][1][1].push(new Portal(this.game, 842, 116));
         // Floor tiles
         this.levelEntities[1][1][1].push(new Tile(this.game, 0, 736, "CITY2_TILE1"));
         this.levelEntities[1][1][1].push(new Tile(this.game, 64, 736, "CITY2_TILE1"));
@@ -655,7 +694,18 @@ class SceneManager {
         this.levelEntities[1][1][1].push(new Tile(this.game, 896, 736, "CITY2_TILE1"));
         this.levelEntities[1][1][1].push(new Tile(this.game, 960, 736, "CITY2_TILE1"));
         // Entities
-        this.levelEntities[1][1][1].push(new Portal(this.game, 905, 650));
+        this.levelEntities[1][1][1].push(new KillBox(this.game, 600 + KILLW, 600 + KILLH, KILLH, KILLH));
+        this.levelEntities[1][1][1].push(new Tile(this.game, 600, 600, "CITY2_TILE1"));
+        this.levelEntities[1][1][1].push(new KillBox(this.game, 320 + KILLW, 400 + KILLH, KILLH, KILLH));
+        this.levelEntities[1][1][1].push(new Tile(this.game, 320, 400, "CITY2_TILE1"));
+        this.levelEntities[1][1][1].push(new KillBox(this.game, 850 + KILLW, 200 + KILLH, KILLH, KILLH));
+        this.levelEntities[1][1][1].push(new Tile(this.game, 850, 200, "CITY2_TILE1"));
+        this.levelEntities[1][1][1].push(new Grate(this.game, 320, 600, "green"));
+        this.levelEntities[1][1][1].push(new Waterfall(this.game, 320, 608, "green"));
+        this.levelEntities[1][1][1].push(new Waterfall(this.game, 320, 632, "green"));
+        this.levelEntities[1][1][1].push(new Waterfall(this.game, 320, 656, "green"));
+        this.levelEntities[1][1][1].push(new Waterfall(this.game, 320, 680, "green"));
+        this.levelEntities[1][1][1].push(new Waterfall(this.game, 320, 704, "green"));
         // World + Boundaries
         this.levelEntities[1][1][1].push(new LeftBoundary(this.game, -10, 0, 10, this.canvasHeight));
         this.levelEntities[1][1][1].push(new RightBoundary(this.game, 1024, 0, 10, this.canvasHeight));

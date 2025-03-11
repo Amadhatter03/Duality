@@ -8,6 +8,7 @@ class Guy {
         this.endingReady = false;
         this.endingNum = 0;
         this.dead = false;
+        this.blind = false;
         this.inWind = false; // Track if the player is inside a WindBox
         // Start Pos
         this.startX = x;
@@ -253,17 +254,24 @@ class Guy {
                     // }
 
                 }
+
                 // Y collisions
                 // Check if entity is a KillBox
                 if ((entity instanceof KillBox)) {
                     that.die(true);
                 }
+
                 if(entity instanceof Coin) {
                     ASSET_MANAGER.playAsset("./Audio/retro-coin.mp3");
                     that.game.score += 100;
                     that.numOfCoins += 1;
                     entity.removeFromWorld = true;
                 }
+
+                if (entity instanceof BlindSign) {
+                    that.blind = true;
+                }
+
                 else if (that.velocity.y > 0) { // falling
                     if (((entity instanceof Tile) || (entity instanceof Box)) // landing while not grounded and was above last tick
                         && ((that.lastBB.bottom) <= entity.BB.top) && (that.isGrounded == false)) {
