@@ -53,6 +53,9 @@ ASSET_MANAGER.queueDownload("./Sprites/SkyBackgroundNight.png");
 ASSET_MANAGER.queueDownload("./Sprites/SkyBackground2.png");
 ASSET_MANAGER.queueDownload("./Sprites/SkyBackground2alt.png");
 
+// Level 2 Background Sprites (Sky/ Rooftop)
+ASSET_MANAGER.queueDownload("./Sprites/SkyBackgroundLP.png");
+ASSET_MANAGER.queueDownload("./Sprites/SkyBackgroundLPAlt.png");
 // Win Screens
 ASSET_MANAGER.queueDownload("./Sprites/Win A.png");
 ASSET_MANAGER.queueDownload("./Sprites/Win B.png");
