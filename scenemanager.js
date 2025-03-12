@@ -2,10 +2,10 @@ class SceneManager {
     constructor(game) {
         this.game = game;
         this.guy = new Guy(this.game, -32, 608);
-        this.level = 2;
-        this.puzzle = 2;
+        this.level = 0;
+        this.puzzle = 0;
         this.reality = 0;
-        this.lastLevel = 2; // Change this variable everytime a new level has been made (NEEDS TO BE CHANGED TO 2)!!!!!
+        this.lastLevel = 2; // The last level
         this.lastPuzzle = 2; // There are 3 puzzles per level
         this.canvasHeight = this.game.ctx.canvas.height;
         this.flag = false;
@@ -991,12 +991,14 @@ class SceneManager {
         this.levelEntities[2][1][0].push(new Tile(this.game, 802, 75,"CITY2_TILE1", true));
 
         //Entities
-        this.levelEntities[2][1][0].push(new Grate(this.game, 135, 0, "green"));
+        //this.levelEntities[2][1][0].push(new Grate(this.game, 135, 0, "green"));
+        this.levelEntities[2][1][0].push(new Waterfall(this.game, 135, 0, "green"));
         this.levelEntities[2][1][0].push(new Waterfall(this.game, 135, 8, "green"));
         this.levelEntities[2][1][0].push(new Waterfall(this.game, 135, 32, "green"));
         this.levelEntities[2][1][0].push(new Waterfall(this.game, 135, 56, "green"));
         this.levelEntities[2][1][0].push(new Waterfall(this.game, 135, 64, "green"));
-        this.levelEntities[2][1][0].push(new Grate(this.game, 475, 430, "green"));
+        //this.levelEntities[2][1][0].push(new Grate(this.game, 475, 430, "green"));
+        this.levelEntities[2][1][0].push(new Waterfall(this.game, 475, 430, "green"));
         this.levelEntities[2][1][0].push(new Waterfall(this.game, 475, 438, "green"));
         this.levelEntities[2][1][0].push(new Waterfall(this.game, 475, 462, "green"));
         this.levelEntities[2][1][0].push(new Waterfall(this.game, 475, 486, "green"));
@@ -1033,7 +1035,6 @@ class SceneManager {
         this.levelEntities[2][1][1].push(new Tile(this.game, 924, 652,"CITY_TILE1", true));
         this.levelEntities[2][1][1].push(new Tile(this.game,963, 652,"CITY_TILE1", true));
 
-
         // Entities
         this.levelEntities[2][1][1].push(new WindBox(this.game, 220, 480,38 , 64, "Right"));
         this.levelEntities[2][1][1].push(new KillBox(this.game, 530, 0,240 , this.canvasHeight));
@@ -1041,7 +1042,6 @@ class SceneManager {
         this.levelEntities[2][1][1].push(new KillBox(this.game, 0, this.canvasHeight + 100,1024, 0));
         this.levelEntities[2][1][1].push(new Coin(this.game,450, 580));
         this.levelEntities[2][1][1].push(new Portal(this.game,950, 570))
-
 
         // World + Boundaries
         this.levelEntities[2][1][1].push(new LeftBoundary(this.game, -10, 0, 10, this.canvasHeight));
@@ -1077,10 +1077,12 @@ class SceneManager {
         this.levelEntities[2][2][0].push(new KillBox(this.game,830, 230,192,this.canvasHeight));
         this.levelEntities[2][2][0].push(new KillBox(this.game, 0, this.canvasHeight + 100,1024, 0));
         this.levelEntities[2][2][0].push(new Coin(this.game, 448, 200));
-        this.levelEntities[2][2][0].push(new Grate(this.game, 568, 150, "green"));
+        //this.levelEntities[2][2][0].push(new Grate(this.game, 568, 150, "green"));
+        this.levelEntities[2][2][0].push(new Waterfall(this.game, 568, 150, "green"));
         this.levelEntities[2][2][0].push(new Waterfall(this.game, 568, 158, "green"));
         this.levelEntities[2][2][0].push(new Waterfall(this.game, 568, 202, "green"));
-        this.levelEntities[2][2][0].push(new Grate(this.game, 828, 80, "green"));
+        //this.levelEntities[2][2][0].push(new Grate(this.game, 828, 80, "green"));
+        this.levelEntities[2][2][0].push(new Waterfall(this.game, 828, 80, "green"));
         this.levelEntities[2][2][0].push(new Waterfall(this.game, 828, 100, "green"));
         this.levelEntities[2][2][0].push(new Waterfall(this.game, 568, 158, "green"));
         this.levelEntities[2][2][0].push(new Waterfall(this.game, 568, 202, "green"));
@@ -1111,7 +1113,8 @@ class SceneManager {
         this.levelEntities[2][2][1].push(new KillBox(this.game, 354, 630, 180, this.canvasHeight));
         this.levelEntities[2][2][1].push(new KillBox(this.game, 840, 0, 176, this.canvasHeight));
         this.levelEntities[2][2][1].push(new KillBox(this.game, 0, this.canvasHeight + 100,1024, 0));
-        this.levelEntities[2][2][1].push(new Grate(this.game, 342, 350, "green"));
+        //this.levelEntities[2][2][1].push(new Grate(this.game, 342, 350, "green"));
+        this.levelEntities[2][2][1].push(new Waterfall(this.game, 342, 350, "green"));
         this.levelEntities[2][2][1].push(new Waterfall(this.game, 342, 358, "green"));
         this.levelEntities[2][2][1].push(new Waterfall(this.game, 342, 402, "green"));
         this.levelEntities[2][2][1].push(new Waterfall(this.game, 342, 450, "green"));
@@ -1122,10 +1125,6 @@ class SceneManager {
         this.levelEntities[2][2][1].push(new Coin(this.game,420, 590));
         this.levelEntities[2][2][1].push(new WindBox(this.game, 600, 100, 38, 80));
         this.levelEntities[2][2][1].push(new WindBox(this.game, 750, 400, 38, 64));
-
-
-
-
 
         // World + Boundaries
         this.levelEntities[2][2][1].push(new LeftBoundary(this.game, -10, 0, 10, this.canvasHeight));
