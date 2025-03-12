@@ -2,11 +2,11 @@ class SceneManager {
     constructor(game) {
         this.game = game;
         this.guy = new Guy(this.game, -32, 608);
-        this.level = 2;
-        this.puzzle = 2;
+        this.level = 0;
+        this.puzzle = 0;
         this.reality = 0;
-        this.lastLevel = 0; // Change this variable everytime a new level has been made (NEEDS TO BE CHANGED TO 2)!!!!!
-        this.lastPuzzle = 3; // There are 3 puzzles per level
+        this.lastLevel = 2; // Change this variable everytime a new level has been made (NEEDS TO BE CHANGED TO 2)!!!!!
+        this.lastPuzzle = 2; // There are 3 puzzles per level
         this.canvasHeight = this.game.ctx.canvas.height;
         this.flag = false;
 
