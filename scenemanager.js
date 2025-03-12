@@ -2,8 +2,8 @@ class SceneManager {
     constructor(game) {
         this.game = game;
         this.guy = new Guy(this.game, -32, 608);
-        this.level = 0;
-        this.puzzle = 0;
+        this.level = 2;
+        this.puzzle = 2;
         this.reality = 0;
         this.lastLevel = 2; // Change this variable everytime a new level has been made (NEEDS TO BE CHANGED TO 2)!!!!!
         this.lastPuzzle = 2; // There are 3 puzzles per level
@@ -1038,6 +1038,7 @@ class SceneManager {
         this.levelEntities[2][1][1].push(new WindBox(this.game, 220, 480,38 , 64, "Right"));
         this.levelEntities[2][1][1].push(new KillBox(this.game, 530, 0,240 , this.canvasHeight));
         this.levelEntities[2][1][1].push(new KillBox(this.game, 930, 660,100 , this.canvasHeight));
+        this.levelEntities[2][1][1].push(new KillBox(this.game, 0, this.canvasHeight + 100,1024, 0));
         this.levelEntities[2][1][1].push(new Coin(this.game,450, 580));
         this.levelEntities[2][1][1].push(new Portal(this.game,950, 570))
 
@@ -1074,6 +1075,7 @@ class SceneManager {
         this.levelEntities[2][2][0].push(new KillBox(this.game,230, 0,150,this.canvasHeight));
         this.levelEntities[2][2][0].push(new KillBox(this.game,385, 250,210,this.canvasHeight));
         this.levelEntities[2][2][0].push(new KillBox(this.game,830, 230,192,this.canvasHeight));
+        this.levelEntities[2][2][0].push(new KillBox(this.game, 0, this.canvasHeight + 100,1024, 0));
         this.levelEntities[2][2][0].push(new Coin(this.game, 448, 200));
         this.levelEntities[2][2][0].push(new Grate(this.game, 568, 150, "green"));
         this.levelEntities[2][2][0].push(new Waterfall(this.game, 568, 158, "green"));
@@ -1108,6 +1110,7 @@ class SceneManager {
         // Entities
         this.levelEntities[2][2][1].push(new KillBox(this.game, 354, 630, 180, this.canvasHeight));
         this.levelEntities[2][2][1].push(new KillBox(this.game, 840, 0, 176, this.canvasHeight));
+        this.levelEntities[2][2][1].push(new KillBox(this.game, 0, this.canvasHeight + 100,1024, 0));
         this.levelEntities[2][2][1].push(new Grate(this.game, 342, 350, "green"));
         this.levelEntities[2][2][1].push(new Waterfall(this.game, 342, 358, "green"));
         this.levelEntities[2][2][1].push(new Waterfall(this.game, 342, 402, "green"));
